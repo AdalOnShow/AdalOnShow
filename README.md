@@ -59,9 +59,10 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 <br/>
 
 ## Best Repo -
-[![AdalOnShow](https://github-readme-stats.vercel.app/api/pin/?username=AdalOnShow&repo=AdalOnShow&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AdalOnShow/AdalOnShow)
 
 [![ HTML-CSS-Projects](https://github-readme-stats.vercel.app/api/pin/?username=AdalOnShow&repo=HTML-CSS-Projects&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AdalOnShow/HTML-CSS-Projects)
+
+[![AdalOnShow](https://github-readme-stats.vercel.app/api/pin/?username=AdalOnShow&repo=AdalOnShow&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AdalOnShow/AdalOnShow)
 
 <p align="left">
   <a href="https://github.com/AdalOnShow?tab=repositories" target="_blank"><img alt="All Repositories" title="All Repositories" src="https://img.shields.io/badge/-All%20Repos-2962FF?style=for-the-badge&logo=koding&logoColor=white"/></a>
