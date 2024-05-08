@@ -35,6 +35,9 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 <a href="https://www.facebook.com/AdalOnShow" target="_blank">
 <img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px; margin-right: 2px;" />
 </a>
+<a href="https://instagram.com/s.h.adal" target="_blank">
+<img src=https://img.shields.io/badge/instagram-%2300acee.svg?&style=for-the-badge&logo=instagram&logoColor=white alt=instagram style="margin-bottom: 5px; margin-right: 2px;" />
+</a>
 <a href="https://twitter.com/AdalOnShow" target="_blank">
 <img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px; margin-right: 2px;" />
 </a>
