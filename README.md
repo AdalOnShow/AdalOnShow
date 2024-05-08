@@ -72,27 +72,6 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 <hr/>
 <br/>
 
-## Github Stats -
-<a> 
-    <a href="https://github.com/AdalOnShow"><img alt="S.H.Adal's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api?username=AdalOnShow&show_icons=true&count_private=true&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <a href="https://github.com/AdalOnShow"><img alt="adal's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=AdalOnShow&langs_count=8&layout=compact&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <br/>
-</a>
-
-
-<p align="center">
-  <a href="https://github.com/AdalOnShow">
-    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=AdalOnShow&theme=radical" alt="Adal's GitHub Contribution"/>
-  </a>
-</p>
-
-
-![Harun's Graph](https://github-readme-activity-graph.vercel.app/graph?username=AdalOnShow&custom_title=Harun's%20GitHub%20Activity%20Graph&bg_color=0D1117&color=7F3FBF&line=7F3FBF&point=7F3FBF&area_color=FFFFFF&title_color=FFFFFF&area=true)
-
-<br/>
-
-<br/>
-
 ## Connect with me
 
 <div align="center">
@@ -107,3 +86,25 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 <img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px; margin-right: 2px;" />
 </a>
 </div>
+
+## Github Stats -
+
+<a> 
+    <a href="https://github.com/AdalOnShow"><img alt="AdalOnShow's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api?username=AdalOnShow&show_icons=true&count_private=true&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
+  <a href="https://github.com/AdalOnShow"><img alt="adal's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=AdalOnShow&langs_count=8&layout=compact&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
+  <br/>
+</a>
+
+
+<p align="center">
+  <a href="https://github.com/AdalOnShow">
+    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=AdalOnShow&theme=radical" alt="Adal's GitHub Contribution"/>
+  </a>
+</p>
+
+
+![AdalONShow's Graph](https://github-readme-activity-graph.vercel.app/graph?username=AdalOnShow&custom_title=Harun's%20GitHub%20Activity%20Graph&bg_color=0D1117&color=7F3FBF&line=7F3FBF&point=7F3FBF&area_color=FFFFFF&title_color=FFFFFF&area=true)
+
+<br/>
+
+<br/>
