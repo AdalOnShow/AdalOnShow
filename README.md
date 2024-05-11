@@ -6,7 +6,7 @@
 
 <div align="center">
 
-![Profile views](https://komarev.com/ghpvc/?username=ProgrammingHero1&color=red)
+![Profile views](https://komarev.com/ghpvc/?username=AdalOnShow&color=red)
 
 Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PYTHON
 
