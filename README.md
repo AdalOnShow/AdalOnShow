@@ -42,7 +42,6 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 ![Strapi](https://img.shields.io/badge/strapi-2E7EEA?style=for-the-badge&logo=strapi&logoColor=white)
 ![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
-
 <hr />
 <br/>
 
@@ -51,12 +50,13 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
   <img alt="github-snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
 </picture>
-
 <br />
 
 ## Github Stats -
 
 ![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)
+<br />
+
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 
 
@@ -65,12 +65,10 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
     <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=AdalOnShow&theme=radical" alt="Adal's GitHub Contribution"/>
   </a>
 </p>
-
 <hr />
 
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
-
 <br/>
 <hr />
 
@@ -79,7 +77,6 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 
 ---
 [![](https://visitcount.itsvg.in/api?id=adalonshow&icon=0&color=0)](https://visitcount.itsvg.in)
-
 <br/>
 
 <h3 align="left">Connect with me:</h3>
