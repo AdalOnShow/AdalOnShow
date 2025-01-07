@@ -9,7 +9,8 @@
 
 Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PYTHON
 
-## Use To Code
+<h2 align="left">Use To Code</h2>
+
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![Javascript](https://img.shields.io/badge/Javascript-F0DB4F?style=for-the-badge&labelColor=black&logo=javascript&logoColor=F0DB4F)
@@ -30,7 +31,6 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 ![Strapi](https://img.shields.io/badge/strapi-2E7EEA?style=for-the-badge&logo=strapi&logoColor=white)
 ![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
-<hr />
 <br/>
 
 <picture>
@@ -40,17 +40,17 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 </picture>
 <br />
 
-## Github Stats -
+<h2 align="left">Github State</h2>
 <div align="center">
   
 ![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 <div/>
+<br />
 
+<h2 align="left">Top Contributed Repo</h2>
 
-## 🔝 Top Contributed Repo
 ![](https://github-contributor-stats.vercel.app/api?username=adalonshow&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
----
 [![](https://visitcount.itsvg.in/api?id=adalonshow&icon=0&color=0)](https://visitcount.itsvg.in)
 <br/>
 
@@ -58,12 +58,11 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
   <a href="https://github.com/AdalOnShow">
     <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=AdalOnShow&theme=radical" alt="Adal's GitHub Contribution"/>
   </a>
-<hr />
 
-## ✍️ Random Dev Quote
+<h2 align="left">Random Dev Quote</h2>
+
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 <br/>
-<hr />
 
 <h3 align="left">Connect with me:</h3>
 
