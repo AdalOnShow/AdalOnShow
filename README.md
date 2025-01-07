@@ -9,17 +9,6 @@
 
 Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PYTHON
 
-</div>
-
-- 🔭 I’m currently learning Fontend Web Devloment
-
-- 🌱 I’m currently learning JavaScript
-
-- 👨‍💻 All of my projects are available at [https://github.com/AdalOnShow](https://github.com/AdalOnShow)
-
-- 💬 Ask me about **HTML5, CSS3, JS, REACT**
-
-
 ## Use To Code
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -53,17 +42,12 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 
 ## Github Stats -
 <div align="center">
-
-![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)
-<div />
-
-<div align="center">
-
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+  
+![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 <div/>
 
 
-### 🔝 Top Contributed Repo
+## 🔝 Top Contributed Repo
 ![](https://github-contributor-stats.vercel.app/api?username=adalonshow&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
 ---
@@ -76,7 +60,7 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
   </a>
 <hr />
 
-### ✍️ Random Dev Quote
+## ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 <br/>
 <hr />
