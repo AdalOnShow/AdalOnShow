@@ -20,28 +20,6 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 
 - 💬 Ask me about **HTML5, CSS3, JS, REACT**
 
-<!-- - 📫 How to reach me **programmerharun@gmail.com**
-
-- 📄 All About Me:[https://lnk.bio/tutul181](https://lnk.bio/tutul181) -->
-
-
-## Connect with me
-
-<div align="center">
-<br/>
-<a href="https://www.linkedin.com/in/AdalOnShow/" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-<a href="https://www.facebook.com/AdalOnShow" target="_blank">
-<img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-<a href="https://instagram.com/s.h.adal" target="_blank">
-<img src=https://img.shields.io/badge/instagram-%E34F26.svg?&style=for-the-badge&logo=instagram&logoColor=white alt=instagram style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-<a href="https://twitter.com/AdalOnShow" target="_blank">
-<img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px; margin-right: 2px;" />
-</a>
-</div>
 
 ## Use To Code
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
@@ -65,29 +43,21 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 ![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
+<hr />
 <br/>
 
-## Best Repo -
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
+  <img alt="github-snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
+</picture>
 
-[![ HTML-CSS-Projects](https://github-readme-stats.vercel.app/api/pin/?username=AdalOnShow&repo=HTML-CSS-Projects&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AdalOnShow/HTML-CSS-Projects)
-
-[![AdalOnShow](https://github-readme-stats.vercel.app/api/pin/?username=AdalOnShow&repo=AdalOnShow&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AdalOnShow/AdalOnShow)
-
-<p align="left">
-  <a href="https://github.com/AdalOnShow?tab=repositories" target="_blank"><img alt="All Repositories" title="All Repositories" src="https://img.shields.io/badge/-All%20Repos-2962FF?style=for-the-badge&logo=koding&logoColor=white"/></a>
-</p>
-
-<br/>
-<hr/>
-<br/>
+<br />
 
 ## Github Stats -
 
-<a> 
-    <a href="https://github.com/AdalOnShow"><img alt="AdalOnShow's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api?username=AdalOnShow&show_icons=true&count_private=true&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <a href="https://github.com/AdalOnShow"><img alt="adal's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=AdalOnShow&langs_count=8&layout=compact&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%"/></a>
-  <br/>
-</a>
+![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 
 
 <p align="center">
@@ -96,10 +66,19 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
   </a>
 </p>
 
+<hr />
 
-![AdalONShow's Graph](https://github-readme-activity-graph.vercel.app/graph?username=AdalOnShow&custom_title=Harun's%20GitHub%20Activity%20Graph&bg_color=0D1117&color=7F3FBF&line=7F3FBF&point=7F3FBF&area_color=FFFFFF&title_color=FFFFFF&area=true)
+### ✍️ Random Dev Quote
+![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 
 <br/>
+<hr />
+
+### 🔝 Top Contributed Repo
+![](https://github-contributor-stats.vercel.app/api?username=adalonshow&limit=5&theme=dark&combine_all_yearly_contributions=true)
+
+---
+[![](https://visitcount.itsvg.in/api?id=adalonshow&icon=0&color=0)](https://visitcount.itsvg.in)
 
 <br/>
 
