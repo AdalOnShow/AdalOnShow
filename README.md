@@ -7,7 +7,7 @@
 
 ![Profile views](https://komarev.com/ghpvc/?username=AdalOnShow&color=red)
 
-Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PYTHON
+Skills: HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PYTHON
 
 <h2 align="left">Use To Code</h2>
 
@@ -43,13 +43,13 @@ Skills:HTML / CSS / JAVASCRIPT / BOOTSTRAP / TAILWIND CSS / REACT / NEXT JS / PY
 <h2 align="left">Github State</h2>
 <div align="center">
   
-![](https://github-readme-stats.vercel.app/api?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false)![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=adalonshow&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 <div/>
 <br />
 
 <h2 align="left">Top Contributed Repo</h2>
 
-![](https://github-contributor-stats.vercel.app/api?username=adalonshow&limit=5&theme=dark&combine_all_yearly_contributions=true)
+
 
 [![](https://visitcount.itsvg.in/api?id=adalonshow&icon=0&color=0)](https://visitcount.itsvg.in)
 <br/>
