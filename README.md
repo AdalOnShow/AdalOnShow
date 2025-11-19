@@ -1,13 +1,39 @@
 ![I am Sharif Hossain Adal](https://github.com/AdalOnShow/AdalOnShow/blob/main/code.jpg)
 
-<h1 align="center">Hi, I'm SHARIF HOSSAIN ADAL 👋</h1>
-<h3 align="center">MERN Stack Web Developer | Programmer | Student | Speed Learner</h3>
+
+  <ul align="center">
+    <h1 align="center">Hi, I'm SHARIF HOSSAIN ADAL 👋</h1>
+    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Montserrat&weight=500&size=25&pause=1000&color=2B90FF&center=true&vCenter=true&width=500&lines=MERN+Stack+Web+Developer+(Fresher);JavaScript+Learner+%26+Builder;Focused+on+Learning+%26+Improving" alt="Typing SVG" /></a>
+  </ul>
 
 <div align="center">
 
 ![Profile views](https://komarev.com/ghpvc/?username=AdalOnShow&color=blue)
 
-<h3>When I code, I rely on</h3>
+
+<h2 align="left">About Me</h2>
+
+<table>
+<tr>
+<td width="60%">
+<h3>I am a confident full-stack JavaScript developer at the beginning of my career, with hands-on experience in building several real projects using React, Next.js, Express.js, and MongoDB. I pride myself on crafting clean, effective solutions and excel at breaking down complex problems into straightforward, usable features.</h3>
+
+- Working with React, Next.js, Node.js, and MongoDB
+- Learning both frontend and backend in depth
+- Open to collaboration on MERN and beginner-friendly open-source projects
+- Goal: Grow into a Full Stack Developer with strong MERN and cloud skills
+
+</td>
+<td width="40%" align="center">
+
+<!-- Professional Developer GIF -->
+<img src="https://i.ibb.co.com/3YMrF8xd/81178b47a8598f0c81c4799f2cdd4057.gif" alt="Developer Animation" width="300"/>
+
+</td>
+</tr>
+</table>
+
+<h2 align="left">When I code, I rely on</h2>
 
 
 |       Skills Overview        | Technologies                                                                                                                                                                                                                          |
@@ -16,11 +42,13 @@
 | **Frontend Technologies** | ![HTML5](https://img.shields.io/badge/-HTML5-333333?style=flat&logo=html5) ![CSS3](https://img.shields.io/badge/-CSS3-333333?style=flat&logo=css3) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-333333?style=flat&logo=tailwindcss) ![React](https://img.shields.io/badge/-React-333333?style=flat&logo=react)|
 | **Back-End Development** | ![Node.js](https://img.shields.io/badge/-Node.js-333333?style=flat&logo=node.js) ![Express.js](https://img.shields.io/badge/-Express.js-333333?style=flat&logo=express)|
 | **Database**          | ![MongoDB](https://img.shields.io/badge/-MongoDB-333333?style=flat&logo=mongodb)                                                        |
-| **Tools & Platforms** | ![Git](https://img.shields.io/badge/-Git-333333?style=flat&logo=git) ![GitHub](https://img.shields.io/badge/-GitHub-333333?style=flat&logo=github) ![Firebase](https://img.shields.io/badge/-Firebase-333333?style=flat&logo=firebase) ![JWT](https://img.shields.io/badge/-JWT-333333?style=flat&logo=json-web-tokens) ![Postman](https://img.shields.io/badge/-Postman-333333?style=flat&logo=postman) ![VS Code](https://img.shields.io/badge/-VS%20Code-333333?style=flat&logo=visual-studio-code) ! |
+| **Tools & Platforms** | ![Git](https://img.shields.io/badge/-Git-333333?style=flat&logo=git) ![GitHub](https://img.shields.io/badge/-GitHub-333333?style=flat&logo=github) ![Firebase](https://img.shields.io/badge/-Firebase-333333?style=flat&logo=firebase) ![JWT](https://img.shields.io/badge/-JWT-333333?style=flat&logo=json-web-tokens) ![Postman](https://img.shields.io/badge/-Postman-333333?style=flat&logo=postman) ![VS Code](https://img.shields.io/badge/-VS%20Code-333333?style=flat&logo=visual-studio-code) |
 
 
 
 <br/>
+
+<h2 align="left">Github Stats</h2>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake-dark.svg" />
@@ -28,7 +56,6 @@
   <img alt="github-snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
 </picture>
 <br />
-<h2 align="left">Github Stats</h2>
 
 | Top Languages | GitHub Stats | GitHub Streak |
 |:---:|:---:|:---:|
@@ -47,12 +74,12 @@
     <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=AdalOnShow&theme=radical" alt="Adal's GitHub Contribution"/>
   </a>
 
-<h2 align="left">Random Dev Quote</h2>
+<h2>Random Dev Quote</h2>
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 <br/>
 
-<h3 align="left">Connect with me:</h3>
+<h2 align="left">Connect with me:</h2>
 
 <p align="center">
 <a href="https://fb.com/AdalOnShow/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="AdalOnShow" height="30" width="40" /></a>
