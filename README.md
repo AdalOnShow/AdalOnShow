@@ -1,4 +1,4 @@
-![I am Sharif Hossain Adal](https://github.com/AdalOnShow/AdalOnShow/blob/main/code-2.png)
+![I am Sharif Hossain Adal](https://github.com/AdalOnShow/AdalOnShow/blob/main/code.png)
 
 
   <ul align="center">
