@@ -63,11 +63,4 @@
 
 <p align="center"><sub>more: <a href="https://github.com/AdalOnShow/WorkNest-frontend">WorkNest (Next.js + Express)</a> · <a href="https://github.com/AdalOnShow/expo-roam">expo-roam</a> · <a href="https://github.com/AdalOnShow/nest-advanced-learning">nest-advanced-learning</a> · <a href="https://github.com/AdalOnShow/rag-learning-project-1">rag-learning</a></sub></p>
 
-<!-- Snake animation, hidden for now:
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake-dark.svg" />
-  <img alt="Contribution snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" width="100%" />
-</picture>
--->
-
-<p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action · <img src="https://komarev.com/ghpvc/?username=AdalOnShow&color=2dd4bf&style=flat-square&label=views" height="14" alt="Profile views" align="center"></sub></p>
+<p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action</sub></p>

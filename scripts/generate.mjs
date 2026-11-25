@@ -83,19 +83,22 @@ const PROJECTS = [
 
 const THEMES = {
   dark: {
-    frame: "#14182b", dot: "#262c4a", card: "#1e2340", line: "#2e355c", shadow: "#0a0c18",
+    frame: "#161a30", dot: "#2a3152", card: "#222849", line: "#343c68", shadow: "#0a0c18",
     text: "#f2f3f8", muted: "#aab0cf", faint: "#6d749c",
     accent: "#2dd4bf", accentInk: "#04211d", hot: "#ff8a5c",
+    // brand logos sit on a light chip so dark brand colours stay visible
+    logoBg: "#f5f6fb", tileIcon: "#ffffff",
     // blue, green, amber, purple, teal, red
-    tones: ["#284a86", "#1f6040", "#81501a", "#4c3c8e", "#1d5b66", "#83293d"],
-    toneText: "#f2f3f8", toneMuted: "#d6dbef",
-    heat: ["#2a3058", "#1d5a37", "#2a8a4d", "#3cbd66", "#63e38b"],
-    heatInk: ["#6d749c", "#d9f5e2", "#ecfbf1", "#0b2414", "#0b2414"],
+    tones: ["#3563b8", "#2a8155", "#a8691f", "#6650bd", "#237b8a", "#ad3b55"],
+    toneText: "#ffffff", toneMuted: "#eef0fa",
+    heat: ["#30375f", "#23733f", "#34a85c", "#4fd67a", "#86f5a8"],
+    heatInk: ["#7880aa", "#e6fbee", "#062012", "#062012", "#062012"],
   },
   light: {
     frame: "#eef0f7", dot: "#d7dbea", card: "#ffffff", line: "#d3d8ea", shadow: "#c3c9e0",
     text: "#1b1f36", muted: "#555c7d", faint: "#8a90ad",
     accent: "#0f9488", accentInk: "#ffffff", hot: "#e8590c",
+    logoBg: "#ffffff", tileIcon: "#e8590c",
     tones: ["#d9e5ff", "#d3f1dd", "#fde6c4", "#e5ddff", "#cdeff0", "#fcd9df"],
     toneText: "#1b1f36", toneMuted: "#4a5070",
     heat: ["#e6e9f3", "#bfe9cc", "#7fd49c", "#38b764", "#1e8545"],
@@ -265,8 +268,8 @@ function skillsCard(t, mode, phone) {
   SKILLS.forEach((s, i) => {
     const x = (i % cols) * (bw + gap) + 1, y = Math.floor(i / cols) * (bh + rowGap) + 1;
     b += box(x, y, bw, bh, t.tones[s.tone], t, { r: 11, shadow: 4 });
-    b += `<rect x="${x + 10}" y="${y + 10}" width="26" height="26" rx="7" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffff"}"/>`;
-    b += logo(s.icon, x + 14, y + 14, 18, brand(s.icon, mode));
+    b += `<rect x="${x + 10}" y="${y + 10}" width="26" height="26" rx="7" fill="${t.logoBg}"/>`;
+    b += logo(s.icon, x + 14, y + 14, 18, brand(s.icon, "light"));
     b += `<text x="${x + 46}" y="${y + 29}" class="h" font-size="17" fill="${t.toneText}">${esc(s.name)}</text>`;
     if (x + 46 + headW(s.name, 17) + 10 < x + bw - 14 - monoW(s.role, 12))
       b += `<text x="${x + bw - 14}" y="${y + 28.5}" text-anchor="end" class="m" font-size="12" fill="${t.toneMuted}">${esc(s.role)}</text>`;
@@ -306,7 +309,7 @@ function statsCard(st, t, phone) {
   big.forEach((it, i) => {
     const x = 40 + (i % bigCols) * (tw + gap), y = top + Math.floor(i / bigCols) * (th + gap);
     b += box(x, y, tw, th, t.tones[it.tone], t, { r: 14, shadow: 6 });
-    b += icon(it.ic, x + tw - 38, y + 16, 22, t.hot);
+    b += icon(it.ic, x + tw - 38, y + 16, 22, t.tileIcon);
     const size = it.v.length > 7 ? 29 : phone ? 33 : 36;
     b += `<text x="${x + 16}" y="${y + 72}" class="h" font-size="${size}" fill="${t.toneText}">${esc(it.v)}</text>`;
     it.l.forEach((s, k) => (b += `<text x="${x + 16}" y="${y + 98 + k * 19}" class="m" font-size="13" fill="${t.toneMuted}">${esc(s)}</text>`));
@@ -314,7 +317,7 @@ function statsCard(st, t, phone) {
   small.forEach((it, i) => {
     const x = 40 + (i % smallCols) * (sw + gap), y = smallTop + Math.floor(i / smallCols) * (sh + gap);
     b += box(x, y, sw, sh, t.tones[it.tone], t, { r: 14, shadow: 6 });
-    b += icon(it.ic, x + 18, y + sh / 2 - 12, 24, t.hot);
+    b += icon(it.ic, x + 18, y + sh / 2 - 12, 24, t.tileIcon);
     b += `<text x="${x + 54}" y="${y + sh / 2 + 11}" class="h" font-size="30" fill="${t.toneText}">${esc(it.v)}</text>`;
     b += `<text x="${x + 62 + headW(it.v, 30)}" y="${y + sh / 2 + 9}" class="m" font-size="14" fill="${t.toneMuted}">${esc(it.l)}</text>`;
   });
@@ -348,20 +351,28 @@ function gridCard(days, title, t, { cols, numbers, phone, chunks = 1, calendarYe
   // Rolling windows end in the last column; a calendar year starts in the first one.
   const pad = Array(Math.max(0, cols - allWeeks.length)).fill([]);
   const weeks = calendarYear ? [...allWeeks, ...pad] : [...pad, ...allWeeks];
+  // A rolling window that crosses New Year shows the same month twice (e.g. Nov), so
+  // the first label and January get a year suffix: "Nov '25" … "Jan '26" … "Nov".
+  const showYear = !calendarYear && days.length > 0 && days[0].d.slice(0, 4) !== days[days.length - 1].d.slice(0, 4);
+  let firstLabel = true;
+  const lfs = phone ? 12 : 13;
   for (let ch = 0; ch < chunks; ch++) {
     const part = weeks.slice(ch * perChunk, (ch + 1) * perChunk);
     const gy = titleH + ch * (blockH + 14) + 26;
-    let lastLabelX = -99, lastMonth = null;
+    let lastLabelEnd = -99, lastMonth = null;
     part.forEach((wk, wi) => {
       const x = gx + wi * (cell + gap);
       const real = wk.filter(Boolean);
       if (!real.length) return;
       const firstOfMonth = real.find((d) => d.d.endsWith("-01"));
       const pick = firstOfMonth || (wi === 0 ? real[0] : null);
-      if (pick && pick.d.slice(0, 7) !== lastMonth && x - lastLabelX > 30) {
-        b += `<text x="${x.toFixed(1)}" y="${gy - 10}" class="m" font-size="${phone ? 12 : 13}" fill="${t.muted}">${MONTHS[Number(pick.d.slice(5, 7)) - 1]}</text>`;
-        lastLabelX = x;
+      if (pick && pick.d.slice(0, 7) !== lastMonth && x > lastLabelEnd + 8) {
+        const mi = Number(pick.d.slice(5, 7)) - 1;
+        const text = MONTHS[mi] + (showYear && (firstLabel || mi === 0) ? ` '${pick.d.slice(2, 4)}` : "");
+        b += `<text x="${x.toFixed(1)}" y="${gy - 10}" class="m" font-size="${lfs}" fill="${t.muted}">${text}</text>`;
+        lastLabelEnd = x + monoW(text, lfs);
         lastMonth = pick.d.slice(0, 7);
+        firstLabel = false;
       }
       wk.forEach((day, d) => {
         if (!day) return;
@@ -481,8 +492,8 @@ function projectCard(p, t, mode, phone) {
     const W = 432, H = 300;
     let b = frame(W, H, t, false);
     b += box(16, 16, W - 40, H - 40, t.tones[p.tone], t, { r: 16, shadow: 6 });
-    b += box(36, 36, 58, 58, mode === "dark" ? "#141830" : "#ffffff", t, { r: 14, shadow: 4 });
-    b += logo(p.icon, 50, 50, 30, brand(p.icon, mode));
+    b += box(36, 36, 58, 58, t.logoBg, t, { r: 14, shadow: 4 });
+    b += logo(p.icon, 50, 50, 30, brand(p.icon, "light"));
     b += `<text x="110" y="62" class="h" font-size="25" fill="${t.toneText}">${esc(p.name)}</text>`;
     b += chip(110, 72, p.status, t.accent, t, { size: 11.5, h: 22, color: t.accentInk }).out;
     b += box(W - 76, 36, 30, 30, t.hot, t, { r: 8, shadow: 3 }) + icon("arrow", W - 74, 38, 26, "#1b1f36", 2.4);
@@ -497,7 +508,7 @@ function projectCard(p, t, mode, phone) {
     return svg(W, H, `${p.name}: ${p.desc}`, t, b);
   }
   const W = 220;
-  const desc = wrap(p.desc, 22).slice(0, 5);
+  const desc = wrap(p.desc, 22).slice(0, 6);
   const descY = 112;
   const tagY = descY + desc.length * 17 + 6;
   const tagRows = [];
@@ -511,8 +522,8 @@ function projectCard(p, t, mode, phone) {
   const footY = tagY + tagRows.length * 25 + 18;
   const H = footY + 28;
   let b = box(4, 4, W - 14, H - 14, t.tones[p.tone], t, { r: 14, shadow: 5 });
-  b += box(18, 18, 40, 40, mode === "dark" ? "#141830" : "#ffffff", t, { r: 10, shadow: 3 });
-  b += logo(p.icon, 27, 27, 22, brand(p.icon, mode));
+  b += box(18, 18, 40, 40, t.logoBg, t, { r: 10, shadow: 3 });
+  b += logo(p.icon, 27, 27, 22, brand(p.icon, "light"));
   b += box(W - 44, 18, 24, 24, t.hot, t, { r: 7, shadow: 2 }) + icon("arrow", W - 43, 19, 22, "#1b1f36", 2.2);
   b += `<text x="18" y="86" class="h" font-size="20" fill="${t.toneText}">${esc(p.name)}</text>`;
   b += chip(18 + headW(p.name, 20) + 8, 70, p.status, t.accent, t, { size: 10, h: 20, color: t.accentInk }).out.replace(/rx="9"/g, 'rx="7"');
