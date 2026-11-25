@@ -1,59 +1,34 @@
-<div align="center">
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" width="100%" alt="Hi, I'm Sharif Hossain Adal. Full stack developer building scalable web apps with Next.js and NestJS."></picture>
 
-# Sharif Hossain Adal
-
-<a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=500&size=20&pause=1200&color=8B949E&center=true&vCenter=true&width=560&lines=Full+Stack+Developer;Next.js+%C2%B7+NestJS+%C2%B7+TypeScript;PostgreSQL+%C2%B7+Prisma+%C2%B7+Redis;Building+scalable+web+applications" alt="Typing SVG" />
-</a>
-
-<br/>
-
-<img src="https://komarev.com/ghpvc/?username=AdalOnShow&color=555555&style=flat-square&label=profile+views" alt="Profile views" />
-
-</div>
-
-<br/>
-
-### About
-
-I'm a full stack developer who builds modern web applications with **Next.js**, **TypeScript**, **NestJS**, **PostgreSQL** and **Prisma**. After a professional full-stack internship working on real products, I enjoy turning complex problems into simple, scalable solutions.
-
-- Building full-stack apps with Next.js, NestJS, PostgreSQL and Prisma
-- Experienced with authentication, REST APIs, payment integrations and real-time features
-- Open to collaboration on modern web apps and open-source projects
-- Focused on scalable backend systems and clean web architecture
-
-<br/>
-
-### Tech Stack
-
-<p align="left">
-  <img src="https://skillicons.dev/icons?i=js,ts,python,react,nextjs,tailwind&theme=dark" alt="Languages and frontend" />
-  <br/>
-  <img src="https://skillicons.dev/icons?i=nodejs,express,nestjs,prisma,postgres,mongodb,redis&theme=dark" alt="Backend and databases" />
-  <br/>
-  <img src="https://skillicons.dev/icons?i=git,github,docker,linux,postman,vercel&theme=dark" alt="Tools" />
+<p align="center">
+<a href="https://nextjs.org"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/skill-nextjs-dark.svg"><img src="assets/skill-nextjs-light.svg" height="48" alt="Next.js"></picture></a>
+<a href="https://nestjs.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/skill-nestjs-dark.svg"><img src="assets/skill-nestjs-light.svg" height="48" alt="NestJS"></picture></a>
+<a href="https://www.typescriptlang.org"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/skill-typescript-dark.svg"><img src="assets/skill-typescript-light.svg" height="48" alt="TypeScript"></picture></a>
+<a href="https://www.postgresql.org"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/skill-postgresql-dark.svg"><img src="assets/skill-postgresql-light.svg" height="48" alt="PostgreSQL"></picture></a>
 </p>
 
-<sub>Also: Framer Motion · TanStack Query · Socket.io · JWT · OAuth 2.0 · RBAC · Zod</sub>
+<p align="center"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&pause=1200&color=14B8A6&center=true&vCenter=true&width=560&lines=Building+full-stack+apps+with+Next.js+%2B+NestJS;TypeScript+%C2%B7+PostgreSQL+%C2%B7+Prisma+%C2%B7+Redis;Real-time+features%2C+auth+and+payments;Always+learning%2C+always+shipping" alt="Typing SVG"></p>
 
-<br/><br/>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/github-dark.svg"><img src="assets/github-light.svg" width="100%" alt="My GitHub numbers: contributions, streaks, public repos and stars, redrawn every night."></picture>
 
-### GitHub Activity
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/whoami-dark.svg"><img src="assets/whoami-light.svg" width="100%" alt="whoami: Sharif Hossain Adal, full stack developer. Next.js, NestJS, TypeScript, PostgreSQL and Prisma."></picture>
 
-<div align="center">
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/label-build-dark.svg"><img src="assets/label-build-light.svg" width="100%" alt="What I build"></picture>
 
-<img height="160" src="https://github-readme-stats.vercel.app/api?username=AdalOnShow&hide_border=true&bg_color=00000000&title_color=8B949E&text_color=8B949E&icon_color=8B949E&show_icons=true&hide_rank=true" alt="GitHub Stats" />
-<img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=AdalOnShow&layout=compact&hide_border=true&bg_color=00000000&title_color=8B949E&text_color=8B949E" alt="Top Languages" />
+<p align="center">
+<a href="https://messmate.sadal.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-messmate-dark.svg"><img src="assets/project-messmate-light.svg" width="49%" alt="MessMate: meal, bazaar and expense accounting for shared bachelor messes."></picture></a>
+<a href="https://worknest.sadal.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-worknest-dark.svg"><img src="assets/project-worknest-light.svg" width="49%" alt="WorkNest: team collaboration for projects, tasks and real-time chat on Cloudflare Workers."></picture></a>
+<a href="https://itemhub-frontend.vercel.app/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-itemhub-dark.svg"><img src="assets/project-itemhub-light.svg" width="49%" alt="ItemHub: a digital book collection management platform."></picture></a>
+<a href="https://github.com/AdalOnShow/company-chatbot"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-company-chatbot-dark.svg"><img src="assets/project-company-chatbot-light.svg" width="49%" alt="Company Chatbot: an AI chatbot written in TypeScript on Bun."></picture></a>
+</p>
 
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=AdalOnShow&hide_border=true&background=00000000&ring=8B949E&fire=8B949E&currStreakNum=8B949E&sideNums=8B949E&currStreakLabel=8B949E&sideLabels=8B949E&dates=8B949E&stroke=8B949E40" alt="GitHub Streak" />
+<p align="center"><sub>more: <a href="https://github.com/AdalOnShow/WorkNest-frontend">WorkNest (Next.js + Express)</a> · <a href="https://github.com/AdalOnShow/expo-roam">expo-roam</a> · <a href="https://github.com/AdalOnShow/nest-advanced-learning">nest-advanced-learning</a> · <a href="https://github.com/AdalOnShow/rag-learning-project-1">rag-learning</a></sub></p>
 
-<br/><br/>
+<br/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
-  <img alt="Contribution snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" />
+  <img alt="Contribution snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" width="100%" />
 </picture>
 
-</div>
+<p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action · <img src="https://komarev.com/ghpvc/?username=AdalOnShow&color=0d9488&style=flat-square&label=views" height="14" alt="Profile views" align="center"></sub></p>
