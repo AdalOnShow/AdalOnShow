@@ -48,6 +48,8 @@
 
 <picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/line-30d-phone-dark.svg"><source media="(max-width: 600px)" srcset="assets/line-30d-phone-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/line-30d-dark.svg"><img src="assets/line-30d-light.svg" width="100%" alt="Contributions in the last 30 days, as a line chart."></picture>
 
+<picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/insights-phone-dark.svg"><source media="(max-width: 600px)" srcset="assets/insights-phone-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/insights-dark.svg"><img src="assets/insights-light.svg" width="100%" alt="Top languages by code size across my public repos, and my contributions by day of the week."></picture>
+
 <picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/whoami-phone-dark.svg"><source media="(max-width: 600px)" srcset="assets/whoami-phone-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/whoami-dark.svg"><img src="assets/whoami-light.svg" width="100%" alt="whoami: Adal, full stack developer. Next.js, NestJS, TypeScript, PostgreSQL and Prisma."></picture>
 
 <picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/label-build-phone-dark.svg"><source media="(max-width: 600px)" srcset="assets/label-build-phone-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/label-build-dark.svg"><img src="assets/label-build-light.svg" width="100%" alt="What I build"></picture>

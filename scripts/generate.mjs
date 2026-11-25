@@ -84,13 +84,13 @@ const PROJECTS = [
 const THEMES = {
   dark: {
     frame: "#161a30", dot: "#2a3152", card: "#222849", line: "#343c68", shadow: "#0a0c18",
-    text: "#d9dce6", muted: "#a2a8c2", faint: "#6d749c",
+    text: "#cacdd8", muted: "#979db5", faint: "#6d749c",
     accent: "#2dd4bf", accentInk: "#04211d", hot: "#ff8a5c",
     // brand logos sit on a light chip so dark brand colours stay visible
-    logoBg: "#dfe2ea", tileIcon: "#cfd3df",
+    logoBg: "#d4d7e0", tileIcon: "#bfc3d0",
     // blue, green, amber, purple, teal, red
     tones: ["#3563b8", "#2a8155", "#a8691f", "#6650bd", "#237b8a", "#ad3b55"],
-    toneText: "#e2e5ee", toneMuted: "#c3c8d8",
+    toneText: "#d4d7e1", toneMuted: "#b7bccc",
     heat: ["#30375f", "#23733f", "#34a85c", "#4fd67a", "#86f5a8"],
     heatInk: ["#7880aa", "#cfe6d7", "#062012", "#062012", "#062012"],
   },
@@ -540,6 +540,92 @@ function projectCard(p, t, mode, phone) {
   return svg(W, H, `${p.name}: ${p.desc}`, t, b);
 }
 
+/* ----------------------------------------------------------- insights card */
+
+const DAYS = "Sun Mon Tue Wed Thu Fri Sat".split(" ");
+const DAYS_LONG = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" ");
+
+// One row per language: logo, name, a chunky bar and the share of all code.
+// Styled like the weekday panel: the top language is highlighted in the accent colour.
+function langPanel(st, t, x, y, w) {
+  const all = st.languages || [];
+  const total = all.reduce((a, l) => a + l.size, 0);
+  const langs = all.filter((l) => l.name !== "Other").slice(0, 4);
+  let b = `<text x="${x}" y="${y + 22}" class="h" font-size="22" fill="${t.text}">${langs.length ? `Mostly ${esc(langs[0].name)}` : "Top languages"}</text>`;
+  b += `<text x="${x}" y="${y + 46}" class="m" font-size="13" fill="${t.muted}">top languages by code size · ${fmt(st.publicRepos)} repos</text>`;
+  if (!langs.length) {
+    return b + `<text x="${x}" y="${y + 110}" class="m" font-size="14" fill="${t.faint}">fills in after the next nightly run</text>`;
+  }
+  const rowH = 32, top = y + 74;
+  const nameX = x + 34, barX = x + 132, pctW = 52, barW = w - (barX - x) - pctW;
+  const max = langs[0].size;
+  langs.forEach((l, i) => {
+    const ry = top + i * rowH;
+    const key = `lang:${l.name}`;
+    b += `<rect x="${x}" y="${ry - 2}" width="24" height="24" rx="7" fill="${t.logoBg}"/>`;
+    if (icons[key]) b += logo(key, x + 4, ry + 2, 16, brand(key, "light"));
+    else b += `<circle cx="${x + 12}" cy="${ry + 10}" r="6" fill="${l.color || t.faint}"/>`;
+    b += `<text x="${nameX}" y="${ry + 15}" class="mb" font-size="14" fill="${i === 0 ? t.text : t.muted}">${esc(l.name)}</text>`;
+    const bw = Math.max(8, (l.size / max) * barW);
+    b += `<rect x="${barX}" y="${ry + 1}" width="${barW}" height="18" rx="6" fill="${t.heat[0]}"/>`;
+    b += `<rect x="${barX + 3}" y="${ry + 4}" width="${bw.toFixed(1)}" height="18" rx="6" fill="${t.shadow}"/>`;
+    b += `<rect x="${barX}" y="${ry + 1}" width="${bw.toFixed(1)}" height="18" rx="6" fill="${i === 0 ? t.accent : t.heat[2]}"/>`;
+    const pct = (l.size / total) * 100;
+    b += `<text x="${x + w}" y="${ry + 15}" text-anchor="end" class="mb" font-size="13" fill="${i === 0 ? t.text : t.muted}">${pct < 1 ? "<1" : Math.round(pct)}%</text>`;
+  });
+  return b;
+}
+
+function weekPanel(st, t, x, y, w) {
+  const days = st.days || [];
+  const sums = Array(7).fill(0);
+  for (const d of days) sums[new Date(d.d + "T00:00:00Z").getUTCDay()] += d.c;
+  const total = sums.reduce((a, c) => a + c, 0);
+  const best = sums.indexOf(Math.max(...sums));
+  let b = `<text x="${x}" y="${y + 22}" class="h" font-size="22" fill="${t.text}">${total ? `Most active on ${DAYS_LONG[best]}` : "Weekday activity"}</text>`;
+  b += `<text x="${x}" y="${y + 46}" class="m" font-size="13" fill="${t.muted}">${total ? `${Math.round((sums[best] / total) * 100)}% of last year's contributions` : "contributions by day of the week"}</text>`;
+  if (!total) return b + `<text x="${x}" y="${y + 110}" class="m" font-size="14" fill="${t.faint}">fills in after the next nightly run</text>`;
+  const top = y + 82, base = y + 172, gap = 10;
+  const bw = (w - 6 * gap) / 7;
+  const max = Math.max(...sums);
+  sums.forEach((c, i) => {
+    const bx = x + i * (bw + gap);
+    const h = Math.max(4, (c / max) * (base - top));
+    b += `<rect x="${(bx + 3).toFixed(1)}" y="${(base - h + 3).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="6" fill="${t.shadow}"/>`;
+    b += `<rect x="${bx.toFixed(1)}" y="${(base - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="6" fill="${i === best ? t.accent : t.heat[2]}"/>`;
+    b += `<text x="${(bx + bw / 2).toFixed(1)}" y="${(base - h - 8).toFixed(1)}" text-anchor="middle" class="mb" font-size="12" fill="${i === best ? t.text : t.muted}">${c}</text>`;
+    b += `<text x="${(bx + bw / 2).toFixed(1)}" y="${base + 22}" text-anchor="middle" class="m" font-size="12.5" fill="${i === best ? t.text : t.muted}">${DAYS[i]}</text>`;
+  });
+  return b;
+}
+
+// Top languages and weekday activity: side by side on desktop, stacked on phones.
+function insightsCard(st, t, phone) {
+  const W = phone ? 440 : 880;
+  const panelH = 200;
+  if (phone) {
+    const H = 50 + panelH + 34 + panelH + 50;
+    let b = frame(W, H, t);
+    b += langPanel(st, t, 44, 50, 346);
+    b += `<path d="M44 ${50 + panelH + 14} H390" stroke="${t.line}" stroke-width="1.5" stroke-dasharray="4 6"/>`;
+    b += weekPanel(st, t, 44, 50 + panelH + 34, 346);
+    return svg(W, H, insightsLabel(st), t, b);
+  }
+  const H = 52 + panelH + 50;
+  let b = frame(W, H, t);
+  b += langPanel(st, t, 52, 52, 360);
+  b += `<path d="M440 60 V${52 + panelH}" stroke="${t.line}" stroke-width="1.5" stroke-dasharray="4 6"/>`;
+  b += weekPanel(st, t, 470, 52, 350);
+  return svg(W, H, insightsLabel(st), t, b);
+}
+
+function insightsLabel(st) {
+  const langs = st.languages || [];
+  const total = langs.reduce((a, l) => a + l.size, 0);
+  const l = langs.length ? `Top languages: ${langs.filter((x) => x.name !== "Other").slice(0, 4).map((x) => `${x.name} ${Math.round((x.size / total) * 100)}%`).join(", ")}.` : "Top languages.";
+  return `${l} Contributions by day of the week.`;
+}
+
 /* -------------------------------------------------------------------- data */
 
 async function gql(query, variables) {
@@ -554,11 +640,27 @@ async function gql(query, variables) {
   return j.data;
 }
 
+// Sum language bytes over all repos; keep the top five and fold the rest into "Other".
+function topLanguages(repos) {
+  const sizes = new Map();
+  for (const r of repos) for (const e of r.languages.edges) {
+    const cur = sizes.get(e.node.name) || { name: e.node.name, color: e.node.color, size: 0 };
+    cur.size += e.size;
+    sizes.set(e.node.name, cur);
+  }
+  const all = [...sizes.values()].sort((a, b) => b.size - a.size);
+  const top = all.slice(0, 5);
+  const rest = all.slice(5).reduce((a, l) => a + l.size, 0);
+  if (rest > 0) top.push({ name: "Other", color: null, size: rest });
+  return top;
+}
+
 async function fetchStats() {
   const base = await gql(
     `query($login:String!){user(login:$login){createdAt followers{totalCount}
       repositories(ownerAffiliations:OWNER,privacy:PUBLIC,first:100,isFork:false){totalCount
-        nodes{stargazerCount releases(first:20){nodes{releaseAssets(first:20){nodes{downloadCount}}}}}}
+        nodes{stargazerCount releases(first:20){nodes{releaseAssets(first:20){nodes{downloadCount}}}}
+          languages(first:10,orderBy:{field:SIZE,direction:DESC}){edges{size node{name color}}}}}
       contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date contributionCount}}}}}}`,
     { login: LOGIN },
   );
@@ -602,6 +704,7 @@ async function fetchStats() {
     stars: u.repositories.nodes.reduce((a, n) => a + n.stargazerCount, 0),
     followers: u.followers.totalCount,
     downloads: u.repositories.nodes.reduce((a, n) => a + n.releases.nodes.reduce((s, r) => s + r.releaseAssets.nodes.reduce((c, x) => c + x.downloadCount, 0), 0), 0),
+    languages: topLanguages(u.repositories.nodes),
     days: lastYear,
     years,
   };
@@ -658,6 +761,7 @@ for (const [mode, t] of Object.entries(THEMES)) {
     await out("graph-12m", gridCard(lastYearDays, "contributions in the last 12 months", t, yearOpts));
     for (const [y, ds] of Object.entries(stats.years || {})) await out(`graph-${y}`, gridCard(ds, `contributions in ${y}`, t, { ...yearOpts, calendarYear: true }));
     await out("line-30d", lineCard(last30, t, phone));
+    await out("insights", insightsCard(stats, t, phone));
     await out("whoami", whoami(t, phone));
     await out("label-build", label("What I build", t, phone));
     for (const p of PROJECTS) await out(`project-${p.slug}`, projectCard(p, t, mode, phone));
