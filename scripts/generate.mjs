@@ -545,30 +545,33 @@ function projectCard(p, t, mode, phone) {
 const DAYS = "Sun Mon Tue Wed Thu Fri Sat".split(" ");
 const DAYS_LONG = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" ");
 
+// One row per language: logo, name, a chunky bar and the share of all code.
+// Styled like the weekday panel: the top language is highlighted in the accent colour.
 function langPanel(st, t, x, y, w) {
-  let b = `<text x="${x}" y="${y + 22}" class="h" font-size="22" fill="${t.text}">Top languages</text>`;
-  const langs = st.languages || [];
-  b += `<text x="${x}" y="${y + 46}" class="m" font-size="13" fill="${t.muted}">by code size · ${fmt(st.publicRepos)} public repos</text>`;
+  const all = st.languages || [];
+  const total = all.reduce((a, l) => a + l.size, 0);
+  const langs = all.filter((l) => l.name !== "Other").slice(0, 4);
+  let b = `<text x="${x}" y="${y + 22}" class="h" font-size="22" fill="${t.text}">${langs.length ? `Mostly ${esc(langs[0].name)}` : "Top languages"}</text>`;
+  b += `<text x="${x}" y="${y + 46}" class="m" font-size="13" fill="${t.muted}">top languages by code size · ${fmt(st.publicRepos)} repos</text>`;
   if (!langs.length) {
     return b + `<text x="${x}" y="${y + 110}" class="m" font-size="14" fill="${t.faint}">fills in after the next nightly run</text>`;
   }
-  const total = langs.reduce((a, l) => a + l.size, 0);
-  const by = y + 66, bh = 16;
-  b += `<clipPath id="langbar"><rect x="${x}" y="${by}" width="${w}" height="${bh}" rx="${bh / 2}"/></clipPath><g clip-path="url(#langbar)">`;
-  let cx = x;
+  const rowH = 32, top = y + 74;
+  const nameX = x + 34, barX = x + 132, pctW = 52, barW = w - (barX - x) - pctW;
+  const max = langs[0].size;
   langs.forEach((l, i) => {
-    const lw = i === langs.length - 1 ? x + w - cx : (l.size / total) * w;
-    b += `<rect x="${cx.toFixed(2)}" y="${by}" width="${Math.max(0, lw).toFixed(2)}" height="${bh}" fill="${l.color || t.faint}"/>`;
-    cx += lw;
-  });
-  b += `</g><rect x="${x}" y="${by}" width="${w}" height="${bh}" rx="${bh / 2}" fill="none" stroke="${t.shadow}" stroke-width="2"/>`;
-  const colW = w / 2;
-  langs.forEach((l, i) => {
-    const lx = x + (i % 2) * colW, ly = by + 46 + Math.floor(i / 2) * 30;
+    const ry = top + i * rowH;
+    const key = `lang:${l.name}`;
+    b += `<rect x="${x}" y="${ry - 2}" width="24" height="24" rx="7" fill="${t.logoBg}"/>`;
+    if (icons[key]) b += logo(key, x + 4, ry + 2, 16, brand(key, "light"));
+    else b += `<circle cx="${x + 12}" cy="${ry + 10}" r="6" fill="${l.color || t.faint}"/>`;
+    b += `<text x="${nameX}" y="${ry + 15}" class="mb" font-size="14" fill="${i === 0 ? t.text : t.muted}">${esc(l.name)}</text>`;
+    const bw = Math.max(8, (l.size / max) * barW);
+    b += `<rect x="${barX}" y="${ry + 1}" width="${barW}" height="18" rx="6" fill="${t.heat[0]}"/>`;
+    b += `<rect x="${barX + 3}" y="${ry + 4}" width="${bw.toFixed(1)}" height="18" rx="6" fill="${t.shadow}"/>`;
+    b += `<rect x="${barX}" y="${ry + 1}" width="${bw.toFixed(1)}" height="18" rx="6" fill="${i === 0 ? t.accent : t.heat[2]}"/>`;
     const pct = (l.size / total) * 100;
-    b += `<circle cx="${lx + 6}" cy="${ly - 5}" r="6" fill="${l.color || t.faint}" stroke="${t.shadow}" stroke-width="1.5"/>`;
-    b += `<text x="${lx + 20}" y="${ly}" class="mb" font-size="14" fill="${t.text}">${esc(l.name)}</text>`;
-    b += `<text x="${lx + colW - 16}" y="${ly}" text-anchor="end" class="m" font-size="13" fill="${t.muted}">${pct < 1 ? "<1" : pct.toFixed(1)}%</text>`;
+    b += `<text x="${x + w}" y="${ry + 15}" text-anchor="end" class="mb" font-size="13" fill="${i === 0 ? t.text : t.muted}">${pct < 1 ? "<1" : Math.round(pct)}%</text>`;
   });
   return b;
 }
@@ -619,7 +622,7 @@ function insightsCard(st, t, phone) {
 function insightsLabel(st) {
   const langs = st.languages || [];
   const total = langs.reduce((a, l) => a + l.size, 0);
-  const l = langs.length ? `Top languages: ${langs.map((x) => `${x.name} ${((x.size / total) * 100).toFixed(1)}%`).join(", ")}.` : "Top languages.";
+  const l = langs.length ? `Top languages: ${langs.filter((x) => x.name !== "Other").slice(0, 4).map((x) => `${x.name} ${Math.round((x.size / total) * 100)}%`).join(", ")}.` : "Top languages.";
   return `${l} Contributions by day of the week.`;
 }
 
