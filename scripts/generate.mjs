@@ -223,29 +223,33 @@ function legend(right, y, t, fs = 13) {
 /* -------------------------------------------------------------------- cards */
 
 function hero(t, mode, phone) {
-  const W = phone ? 440 : 880, H = phone ? 380 : 250;
+  const W = phone ? 440 : 880;
+  const hs = phone ? 44 : 50;
+  const hx = phone ? 52 : 176, hy = phone ? 196 : 118;
+  // Lay out the tagline and pills first, so the card grows to fit them.
+  const tag = phone ? wrap(PROFILE.tagline, 36) : [PROFILE.tagline];
+  const pills = [];
+  let px = hx + 2, py = hy + 42 + (tag.length - 1) * 22 + 18;
+  PROFILE.pills.forEach((p, i) => {
+    const w = monoW(p, 12.5) + 26;
+    if (px + w > W - 48) { px = hx + 2; py += 42; }
+    pills.push({ p, i, x: px, y: py });
+    px += w + 14;
+  });
+  const H = Math.max(phone ? 0 : 250, py + 30 + 3 + 30 + 30);
   let b = frame(W, H, t);
   const mx = phone ? 52 : 56, my = phone ? 52 : 62, ms = phone ? 76 : 92;
   b += box(mx, my, ms, ms, mode === "dark" ? "#f6f1e7" : "#1b1f36", t, { r: 18, shadow: 6 });
   b += `<text x="${mx + ms / 2}" y="${my + ms * 0.69}" text-anchor="middle" class="h" font-size="${ms * 0.59}" fill="${mode === "dark" ? "#1b1f36" : "#f6f1e7"}">A</text>`;
   b += `<rect x="${mx + ms - 22}" y="${my + ms - 20}" width="11" height="11" rx="3" fill="${t.accent}"/>`;
 
-  const hs = phone ? 44 : 50;
-  const hx = phone ? 52 : 176, hy = phone ? 196 : 118;
   b += `<text x="${hx}" y="${hy}" class="h" font-size="${hs}" fill="${t.text}">${esc(PROFILE.hi)}</text>`;
   const nx = hx + headW(PROFILE.hi, hs) + 14, nw = headW(PROFILE.name, hs) + 22;
   b += `<g transform="rotate(-1.5 ${nx} ${hy - 44})"><rect x="${nx}" y="${hy - hs * 0.92}" width="${nw}" height="${hs * 1.24}" rx="10" fill="${t.tones[4]}" stroke="${t.shadow}" stroke-width="2"/>`;
   b += `<text x="${nx + 11}" y="${hy}" class="h" font-size="${hs}" fill="${t.toneText}">${esc(PROFILE.name)}</text></g>`;
 
-  const tag = phone ? wrap(PROFILE.tagline, 36) : [PROFILE.tagline];
   tag.forEach((s, i) => (b += `<text x="${hx + 2}" y="${hy + 42 + i * 22}" class="m" font-size="15.5" fill="${t.muted}">${esc(s)}</text>`));
-  let x = hx + 2, y = hy + 42 + (tag.length - 1) * 22 + 18;
-  PROFILE.pills.forEach((p, i) => {
-    const w = monoW(p, 12.5) + 26;
-    if (x + w > W - 40) { x = hx + 2; y += 42; }
-    b += chip(x, y, p, t.tones[[0, 2, 3, 5][i]], t, { size: 12.5 }).out;
-    x += w + 14;
-  });
+  for (const { p, i, x, y } of pills) b += chip(x, y, p, t.tones[[0, 2, 3, 5][i]], t, { size: 12.5 }).out;
   const sw = monoW(PROFILE.sticker, 13) + 28, sx = W - 64 - sw, sy = phone ? 66 : 42;
   b += `<g transform="rotate(4 ${sx + sw / 2} ${sy + 17})">` + box(sx, sy, sw, 34, t.hot, t, { r: 9, shadow: 4 }) +
     `<text x="${sx + sw / 2}" y="${sy + 22}" text-anchor="middle" class="mb" font-size="13" fill="#1b1f36">${esc(PROFILE.sticker)}</text></g>`;
