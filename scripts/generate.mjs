@@ -84,15 +84,15 @@ const PROJECTS = [
 const THEMES = {
   dark: {
     frame: "#161a30", dot: "#2a3152", card: "#222849", line: "#343c68", shadow: "#0a0c18",
-    text: "#f2f3f8", muted: "#aab0cf", faint: "#6d749c",
+    text: "#d9dce6", muted: "#a2a8c2", faint: "#6d749c",
     accent: "#2dd4bf", accentInk: "#04211d", hot: "#ff8a5c",
     // brand logos sit on a light chip so dark brand colours stay visible
-    logoBg: "#f5f6fb", tileIcon: "#ffffff",
+    logoBg: "#dfe2ea", tileIcon: "#cfd3df",
     // blue, green, amber, purple, teal, red
     tones: ["#3563b8", "#2a8155", "#a8691f", "#6650bd", "#237b8a", "#ad3b55"],
-    toneText: "#ffffff", toneMuted: "#eef0fa",
+    toneText: "#e2e5ee", toneMuted: "#c3c8d8",
     heat: ["#30375f", "#23733f", "#34a85c", "#4fd67a", "#86f5a8"],
-    heatInk: ["#7880aa", "#e6fbee", "#062012", "#062012", "#062012"],
+    heatInk: ["#7880aa", "#cfe6d7", "#062012", "#062012", "#062012"],
   },
   light: {
     frame: "#eef0f7", dot: "#d7dbea", card: "#ffffff", line: "#d3d8ea", shadow: "#c3c9e0",
