@@ -348,20 +348,28 @@ function gridCard(days, title, t, { cols, numbers, phone, chunks = 1, calendarYe
   // Rolling windows end in the last column; a calendar year starts in the first one.
   const pad = Array(Math.max(0, cols - allWeeks.length)).fill([]);
   const weeks = calendarYear ? [...allWeeks, ...pad] : [...pad, ...allWeeks];
+  // A rolling window that crosses New Year shows the same month twice (e.g. Nov), so
+  // the first label and January get a year suffix: "Nov '25" … "Jan '26" … "Nov".
+  const showYear = !calendarYear && days.length > 0 && days[0].d.slice(0, 4) !== days[days.length - 1].d.slice(0, 4);
+  let firstLabel = true;
+  const lfs = phone ? 12 : 13;
   for (let ch = 0; ch < chunks; ch++) {
     const part = weeks.slice(ch * perChunk, (ch + 1) * perChunk);
     const gy = titleH + ch * (blockH + 14) + 26;
-    let lastLabelX = -99, lastMonth = null;
+    let lastLabelEnd = -99, lastMonth = null;
     part.forEach((wk, wi) => {
       const x = gx + wi * (cell + gap);
       const real = wk.filter(Boolean);
       if (!real.length) return;
       const firstOfMonth = real.find((d) => d.d.endsWith("-01"));
       const pick = firstOfMonth || (wi === 0 ? real[0] : null);
-      if (pick && pick.d.slice(0, 7) !== lastMonth && x - lastLabelX > 30) {
-        b += `<text x="${x.toFixed(1)}" y="${gy - 10}" class="m" font-size="${phone ? 12 : 13}" fill="${t.muted}">${MONTHS[Number(pick.d.slice(5, 7)) - 1]}</text>`;
-        lastLabelX = x;
+      if (pick && pick.d.slice(0, 7) !== lastMonth && x > lastLabelEnd + 8) {
+        const mi = Number(pick.d.slice(5, 7)) - 1;
+        const text = MONTHS[mi] + (showYear && (firstLabel || mi === 0) ? ` '${pick.d.slice(2, 4)}` : "");
+        b += `<text x="${x.toFixed(1)}" y="${gy - 10}" class="m" font-size="${lfs}" fill="${t.muted}">${text}</text>`;
+        lastLabelEnd = x + monoW(text, lfs);
         lastMonth = pick.d.slice(0, 7);
+        firstLabel = false;
       }
       wk.forEach((day, d) => {
         if (!day) return;
