@@ -25,15 +25,19 @@
 <p align="center">
 <a href="https://messmate.sadal.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-messmate-dark.svg"><img src="assets/project-messmate-light.svg" width="49%" alt="MessMate: meal, bazaar and expense accounting for shared bachelor messes."></picture></a>
 <a href="https://worknest.sadal.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-worknest-dark.svg"><img src="assets/project-worknest-light.svg" width="49%" alt="WorkNest: team collaboration for projects, tasks and real-time chat on Cloudflare Workers."></picture></a>
+<!-- Hidden for now:
 <a href="https://itemhub-frontend.vercel.app/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-itemhub-dark.svg"><img src="assets/project-itemhub-light.svg" width="49%" alt="ItemHub: a digital book collection management platform."></picture></a>
 <a href="https://github.com/AdalOnShow/company-chatbot"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/project-company-chatbot-dark.svg"><img src="assets/project-company-chatbot-light.svg" width="49%" alt="Company Chatbot: an AI chatbot written in TypeScript on Bun."></picture></a>
+-->
 </p>
 
 <p align="center"><sub>more: <a href="https://github.com/AdalOnShow/WorkNest-frontend">WorkNest (Next.js + Express)</a> · <a href="https://github.com/AdalOnShow/expo-roam">expo-roam</a> · <a href="https://github.com/AdalOnShow/nest-advanced-learning">nest-advanced-learning</a> · <a href="https://github.com/AdalOnShow/rag-learning-project-1">rag-learning</a></sub></p>
 
+<!-- Snake animation, hidden for now:
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake-dark.svg" />
   <img alt="Contribution snake" src="https://raw.githubusercontent.com/adalonshow/adalonshow/output/github-snake.svg" width="100%" />
 </picture>
+-->
 
 <p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action · <img src="https://komarev.com/ghpvc/?username=AdalOnShow&color=2dd4bf&style=flat-square&label=views" height="14" alt="Profile views" align="center"></sub></p>
