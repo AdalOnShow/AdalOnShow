@@ -88,12 +88,14 @@ const THEMES = {
     text: "#e6edf3", muted: "#8b98a5", faint: "#5d6b76",
     accent: "#2dd4bf", accent2: "#22d3ee", accentInk: "#04211d", accentSoft: "#2dd4bf1f",
     heat: ["#16212a", "#0f4c45", "#13776b", "#1fa896", "#2dd4bf"],
+    heatInk: ["#5d6b76", "#d7f5ef", "#e9fbf7", "#04211d", "#04211d"],
   },
   light: {
     bg: "#f6f8fa", card: "#ffffff", tile: "#f4f8f9", line: "#dbe4e8", line2: "#cbd7dc",
     text: "#0f1a20", muted: "#56656f", faint: "#8695a0",
     accent: "#0d9488", accent2: "#0891b2", accentInk: "#ffffff", accentSoft: "#0d948814",
     heat: ["#ebf0f2", "#b3e6dd", "#6fcfbf", "#22a897", "#0d7f74"],
+    heatInk: ["#8695a0", "#0b3b35", "#06302b", "#ffffff", "#ffffff"],
   },
 };
 
@@ -280,6 +282,54 @@ function whoami(t) {
   return svg(W, H, label, t, b);
 }
 
+function dailyCard(st, t) {
+  const W = 880;
+  const weeks = [];
+  const days = st.days || [];
+  for (let i = 0; i < days.length; i += 7) weeks.push(days.slice(i, i + 7));
+  const cols = 26, gap = 4;
+  const shown = weeks.slice(-cols);
+  const total = shown.flat().reduce((a, d) => a + d.c, 0);
+  const cell = (W - 64 - (cols - 1) * gap) / cols;
+  const gx = 32, gy = 104;
+  const H = gy + 7 * (cell + gap) + 46;
+  let b = cardFrame(W, H, t);
+  b += `<text x="32" y="56" class="sans" font-size="24"><tspan class="t" font-weight="800">${days.length ? fmt(total) : "—"}</tspan><tspan class="m mono" font-size="15" dx="10">contributions in the last 6 months</tspan></text>`;
+  b += `<text x="${W - 32}" y="54" text-anchor="end" class="mono f" font-size="12.5">one square = one day</text>`;
+  const max = Math.max(1, ...shown.flat().map((d) => d.c));
+  const lvl = (c) => (c === 0 ? 0 : Math.min(4, Math.ceil((c / max) * 4)));
+  let lastMonth = null;
+  for (let wi = 0; wi < cols; wi++) {
+    const wk = shown[wi - (cols - shown.length)];
+    const x = gx + wi * (cell + gap);
+    if (wk && wk.length) {
+      const m = wk[0].d.slice(0, 7);
+      if (m !== lastMonth && (lastMonth !== null || Number(wk[0].d.slice(8)) <= 7)) {
+        const name = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ")[Number(wk[0].d.slice(5, 7)) - 1];
+        b += `<text x="${x.toFixed(1)}" y="${gy - 12}" class="mono m" font-size="12.5">${name}</text>`;
+      }
+      lastMonth = m;
+    }
+    for (let d = 0; d < 7; d++) {
+      const day = wk && wk[d];
+      const y = gy + d * (cell + gap);
+      if (!day) continue;
+      const L = lvl(day.c);
+      b += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="5" fill="${t.heat[L]}"><title>${esc(day.d)}: ${day.c}</title></rect>`;
+      const fs = day.c >= 100 ? 10 : 11.5;
+      b += `<text x="${(x + cell / 2).toFixed(2)}" y="${(y + cell / 2 + fs * 0.36).toFixed(2)}" text-anchor="middle" class="mono" font-size="${fs}" font-weight="${L ? 700 : 400}"${L ? "" : ' font-style="italic"'} fill="${t.heatInk[L]}">${day.c}</text>`;
+    }
+  }
+  if (!days.length) b += `<text x="${W / 2}" y="${gy + 3.5 * (cell + gap)}" text-anchor="middle" class="mono f" font-size="13">fills in after the first nightly run</text>`;
+  const ly = H - 24;
+  b += `<text x="32" y="${ly}" class="mono f" font-size="12">contributions per day</text>`;
+  const lx = W - 32 - 5 * 15 - 34 - 36;
+  b += `<text x="${lx}" y="${ly}" class="mono f" font-size="12">less</text>`;
+  t.heat.forEach((c, i) => (b += `<rect x="${lx + 36 + i * 15}" y="${ly - 10}" width="11" height="11" rx="2.5" fill="${c}"/>`));
+  b += `<text x="${W - 32}" y="${ly}" text-anchor="end" class="mono f" font-size="12">more</text>`;
+  return svg(W, H, `${days.length ? fmt(total) : "—"} contributions in the last 6 months, with the count for each day`, t, b);
+}
+
 function label(text, sub, t) {
   const W = 880, H = 64;
   let b = `<rect x="0" y="30" width="5" height="22" rx="2.5" fill="url(#ag)"/>`;
@@ -391,6 +441,7 @@ for (const [mode, t] of Object.entries(THEMES)) {
   out("hero", hero(t));
   SKILLS.forEach((s) => out(`skill-${s.icon}`, skillBadge(s, t)));
   out("github", statsCard(stats, t));
+  out("daily", dailyCard(stats, t));
   out("whoami", whoami(t));
   out("label-build", label("What I build", "selected projects", t));
   PROJECTS.forEach((p) => out(`project-${p.slug}`, projectCard(p, t)));

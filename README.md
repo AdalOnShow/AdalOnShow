@@ -11,6 +11,8 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/github-dark.svg"><img src="assets/github-light.svg" width="100%" alt="My GitHub numbers: contributions, streaks, public repos and stars, redrawn every night."></picture>
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/daily-dark.svg"><img src="assets/daily-light.svg" width="100%" alt="Contributions in the last 6 months, with the number for each day."></picture>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/whoami-dark.svg"><img src="assets/whoami-light.svg" width="100%" alt="whoami: Sharif Hossain Adal, full stack developer. Next.js, NestJS, TypeScript, PostgreSQL and Prisma."></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/label-build-dark.svg"><img src="assets/label-build-light.svg" width="100%" alt="What I build"></picture>
