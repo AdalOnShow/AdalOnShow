@@ -14,6 +14,41 @@
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-6m-dark.svg"><img src="assets/graph-6m-light.svg" width="100%" alt="Contributions in the last 6 months, with the count for each day."></picture>
 
 <!-- years:start -->
+<details><summary>Last 12 months: 830 contributions</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-12m-dark.svg"><img src="assets/graph-12m-light.svg" width="100%" alt="Contributions in the last 12 months"></picture>
+
+</details>
+
+<details><summary>2026: 724 contributions</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-2026-dark.svg"><img src="assets/graph-2026-light.svg" width="100%" alt="724 contributions in 2026"></picture>
+
+</details>
+
+<details><summary>2025: 318 contributions</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-2025-dark.svg"><img src="assets/graph-2025-light.svg" width="100%" alt="318 contributions in 2025"></picture>
+
+</details>
+
+<details><summary>2024: 201 contributions</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-2024-dark.svg"><img src="assets/graph-2024-light.svg" width="100%" alt="201 contributions in 2024"></picture>
+
+</details>
+
+<details><summary>2023: 4 contributions</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-2023-dark.svg"><img src="assets/graph-2023-light.svg" width="100%" alt="4 contributions in 2023"></picture>
+
+</details>
+
+<details><summary>2022: 1 contribution</summary>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/graph-2022-dark.svg"><img src="assets/graph-2022-light.svg" width="100%" alt="1 contributions in 2022"></picture>
+
+</details>
 <!-- years:end -->
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/line-30d-dark.svg"><img src="assets/line-30d-light.svg" width="100%" alt="Contributions in the last 30 days, as a line chart."></picture>
