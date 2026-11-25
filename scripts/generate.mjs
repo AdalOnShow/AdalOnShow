@@ -1,5 +1,6 @@
-// Draws the profile README cards as SVGs (dark + light) into ../assets and
-// rewrites the yearly-graph block of README.md.
+// Draws the profile README cards as SVGs into ../assets and rewrites the
+// yearly-graph block of README.md. Every card comes in four versions:
+// desktop/phone × dark/light (phone cards are 440 wide instead of 880).
 // Run: npm ci && node scripts/generate.mjs
 // With GITHUB_TOKEN set it refreshes data/stats.json from the GitHub GraphQL API;
 // without it, it redraws from the cached numbers.
@@ -32,11 +33,16 @@ const PROFILE = {
   sticker: "@AdalOnShow",
 };
 
+// Two rows of four on desktop, four rows of two on phones.
 const SKILLS = [
   { icon: "nextjs", name: "Next.js", role: "frontend", tone: 0 },
   { icon: "nestjs", name: "NestJS", role: "backend", tone: 5 },
   { icon: "typescript", name: "TypeScript", role: "language", tone: 3 },
   { icon: "postgresql", name: "PostgreSQL", role: "database", tone: 4 },
+  { icon: "react", name: "React", role: "UI", tone: 1 },
+  { icon: "node", name: "Node.js", role: "runtime", tone: 2 },
+  { icon: "prisma", name: "Prisma", role: "ORM", tone: 5 },
+  { icon: "tailwind", name: "Tailwind", role: "styling", tone: 0 },
 ];
 
 const WHOAMI = {
@@ -205,66 +211,73 @@ function toWeeks(days) {
   return weeks;
 }
 
-function legend(right, y, t) {
-  let b = `<text x="${right}" y="${y}" text-anchor="end" class="m" font-size="13" fill="${t.muted}">More</text>`;
-  const sx = right - 44 - 5 * 17;
-  t.heat.forEach((c, i) => (b += `<rect x="${sx + i * 17}" y="${y - 11}" width="13" height="13" rx="3" fill="${c}"/>`));
-  b += `<text x="${sx - 8}" y="${y}" text-anchor="end" class="m" font-size="13" fill="${t.muted}">Less</text>`;
+function legend(right, y, t, fs = 13) {
+  const sq = fs, step = fs + 4;
+  let b = `<text x="${right}" y="${y}" text-anchor="end" class="m" font-size="${fs}" fill="${t.muted}">More</text>`;
+  const sx = right - monoW("More", fs) - 8 - 5 * step;
+  t.heat.forEach((c, i) => (b += `<rect x="${sx + i * step}" y="${y - sq + 2}" width="${sq}" height="${sq}" rx="3" fill="${c}"/>`));
+  b += `<text x="${sx - 8}" y="${y}" text-anchor="end" class="m" font-size="${fs}" fill="${t.muted}">Less</text>`;
   return b;
 }
 
 /* -------------------------------------------------------------------- cards */
 
-function hero(t, mode) {
-  const W = 880, H = 250;
+function hero(t, mode, phone) {
+  const W = phone ? 440 : 880, H = phone ? 380 : 250;
   let b = frame(W, H, t);
-  b += box(56, 62, 92, 92, mode === "dark" ? "#f6f1e7" : "#1b1f36", t, { r: 20, shadow: 6 });
-  b += `<text x="102" y="126" text-anchor="middle" class="h" font-size="54" fill="${mode === "dark" ? "#1b1f36" : "#f6f1e7"}">A</text>`;
-  b += `<rect x="126" y="134" width="11" height="11" rx="3" fill="${t.accent}"/>`;
-  const hiW = headW(PROFILE.hi, 50);
-  b += `<text x="176" y="118" class="h" font-size="50" fill="${t.text}">${esc(PROFILE.hi)}</text>`;
-  const nx = 176 + hiW + 14, nw = headW(PROFILE.name, 50) + 22;
-  b += `<g transform="rotate(-1.5 ${nx} 74)"><rect x="${nx}" y="72" width="${nw}" height="62" rx="10" fill="${t.tones[4]}" stroke="${t.shadow}" stroke-width="2"/>`;
-  b += `<text x="${nx + 11}" y="118" class="h" font-size="50" fill="${t.toneText}">${esc(PROFILE.name)}</text></g>`;
-  b += `<text x="178" y="160" class="m" font-size="15.5" fill="${t.muted}">${esc(PROFILE.tagline)}</text>`;
-  let x = 178;
-  PROFILE.pills.forEach((p, i) => { const r = chip(x, 178, p, t.tones[[0, 2, 3, 5][i]], t, { size: 12.5 }); b += r.out; x += r.w + 14; });
-  const sw = monoW(PROFILE.sticker, 13) + 28;
-  b += `<g transform="rotate(4 ${W - 64 - sw / 2} 60)">` + box(W - 64 - sw, 42, sw, 34, t.hot, t, { r: 9, shadow: 4 }) +
-    `<text x="${W - 64 - sw / 2}" y="64" text-anchor="middle" class="mb" font-size="13" fill="#1b1f36">${esc(PROFILE.sticker)}</text></g>`;
+  const mx = phone ? 52 : 56, my = phone ? 52 : 62, ms = phone ? 76 : 92;
+  b += box(mx, my, ms, ms, mode === "dark" ? "#f6f1e7" : "#1b1f36", t, { r: 18, shadow: 6 });
+  b += `<text x="${mx + ms / 2}" y="${my + ms * 0.69}" text-anchor="middle" class="h" font-size="${ms * 0.59}" fill="${mode === "dark" ? "#1b1f36" : "#f6f1e7"}">A</text>`;
+  b += `<rect x="${mx + ms - 22}" y="${my + ms - 20}" width="11" height="11" rx="3" fill="${t.accent}"/>`;
+
+  const hs = phone ? 44 : 50;
+  const hx = phone ? 52 : 176, hy = phone ? 196 : 118;
+  b += `<text x="${hx}" y="${hy}" class="h" font-size="${hs}" fill="${t.text}">${esc(PROFILE.hi)}</text>`;
+  const nx = hx + headW(PROFILE.hi, hs) + 14, nw = headW(PROFILE.name, hs) + 22;
+  b += `<g transform="rotate(-1.5 ${nx} ${hy - 44})"><rect x="${nx}" y="${hy - hs * 0.92}" width="${nw}" height="${hs * 1.24}" rx="10" fill="${t.tones[4]}" stroke="${t.shadow}" stroke-width="2"/>`;
+  b += `<text x="${nx + 11}" y="${hy}" class="h" font-size="${hs}" fill="${t.toneText}">${esc(PROFILE.name)}</text></g>`;
+
+  const tag = phone ? wrap(PROFILE.tagline, 36) : [PROFILE.tagline];
+  tag.forEach((s, i) => (b += `<text x="${hx + 2}" y="${hy + 42 + i * 22}" class="m" font-size="15.5" fill="${t.muted}">${esc(s)}</text>`));
+  let x = hx + 2, y = hy + 42 + (tag.length - 1) * 22 + 18;
+  PROFILE.pills.forEach((p, i) => {
+    const w = monoW(p, 12.5) + 26;
+    if (x + w > W - 40) { x = hx + 2; y += 42; }
+    b += chip(x, y, p, t.tones[[0, 2, 3, 5][i]], t, { size: 12.5 }).out;
+    x += w + 14;
+  });
+  const sw = monoW(PROFILE.sticker, 13) + 28, sx = W - 64 - sw, sy = phone ? 66 : 42;
+  b += `<g transform="rotate(4 ${sx + sw / 2} ${sy + 17})">` + box(sx, sy, sw, 34, t.hot, t, { r: 9, shadow: 4 }) +
+    `<text x="${sx + sw / 2}" y="${sy + 22}" text-anchor="middle" class="mb" font-size="13" fill="#1b1f36">${esc(PROFILE.sticker)}</text></g>`;
   return svg(W, H, `Hi, I'm ${PROFILE.full}. ${PROFILE.tagline}`, t, b);
 }
 
-function skillBadge(s, t, mode) {
-  const W = 220, H = 50;
-  let b = box(2, 2, W - 10, H - 10, t.tones[s.tone], t, { r: 11, shadow: 4 });
-  b += `<rect x="10" y="9" width="24" height="24" rx="6" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffff"}"/>`;
-  b += logo(s.icon, 13, 12, 18, brand(s.icon, mode));
-  b += `<text x="44" y="27" class="h" font-size="16" fill="${t.toneText}">${esc(s.name)}</text>`;
-  b += `<text x="${W - 18}" y="26.5" text-anchor="end" class="m" font-size="12" fill="${t.toneMuted}">${esc(s.role)}</text>`;
-  return svg(W, H, `${s.name} (${s.role})`, t, b);
+function skillsCard(t, mode, phone) {
+  const W = phone ? 440 : 880, cols = phone ? 2 : 4, gap = 16, bh = 46, rowGap = 18;
+  const bw = (W - 8 - (cols - 1) * gap) / cols;
+  const rows = Math.ceil(SKILLS.length / cols);
+  const H = rows * bh + (rows - 1) * rowGap + 8;
+  let b = "";
+  SKILLS.forEach((s, i) => {
+    const x = (i % cols) * (bw + gap) + 1, y = Math.floor(i / cols) * (bh + rowGap) + 1;
+    b += box(x, y, bw, bh, t.tones[s.tone], t, { r: 11, shadow: 4 });
+    b += `<rect x="${x + 10}" y="${y + 10}" width="26" height="26" rx="7" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffff"}"/>`;
+    b += logo(s.icon, x + 14, y + 14, 18, brand(s.icon, mode));
+    b += `<text x="${x + 46}" y="${y + 29}" class="h" font-size="17" fill="${t.toneText}">${esc(s.name)}</text>`;
+    if (x + 46 + headW(s.name, 17) + 10 < x + bw - 14 - monoW(s.role, 12))
+      b += `<text x="${x + bw - 14}" y="${y + 28.5}" text-anchor="end" class="m" font-size="12" fill="${t.toneMuted}">${esc(s.role)}</text>`;
+  });
+  return svg(W, H, `Top skills: ${SKILLS.map((s) => s.name).join(", ")}`, t, b);
 }
 
-function statsCard(st, t) {
-  const W = 880, H = 380;
-  let b = frame(W, H, t, false);
-  b += `<text x="40" y="62" class="h" font-size="28" fill="${t.text}">On GitHub</text>`;
-  b += `<text x="${W - 40}" y="60" text-anchor="end" class="m" font-size="13" fill="${t.muted}">redrawn every night · ${esc(st.updated || "soon")}</text>`;
+function statsCard(st, t, phone) {
+  const W = phone ? 440 : 880;
   const big = [
     { tone: 0, ic: "cal", v: fmt(st.contributionsYear), l: ["contributions in", "the last year"] },
     { tone: 1, ic: "flame", v: st.currentStreak == null ? "—" : `${st.currentStreak} ${plural(st.currentStreak, "day")}`, l: ["current streak,", st.streakSince ? `since ${st.streakSince}` : "keep it going"] },
     { tone: 2, ic: "trophy", v: st.longestStreak == null ? "—" : `${st.longestStreak} ${plural(st.longestStreak, "day")}`, l: ["longest streak", "ever"] },
     { tone: 3, ic: "bars", v: fmt(st.total), l: ["contributions", st.since ? `since ${st.since}` : "all time"] },
   ];
-  const gap = 20, tw = (W - 80 - 6 - 3 * gap) / 4;
-  big.forEach((it, i) => {
-    const x = 40 + i * (tw + gap), y = 88;
-    b += box(x, y, tw, 132, t.tones[it.tone], t, { r: 14, shadow: 6 });
-    b += icon(it.ic, x + tw - 40, y + 16, 22, t.hot);
-    const size = it.v.length > 7 ? 30 : 36;
-    b += `<text x="${x + 18}" y="${y + 72}" class="h" font-size="${size}" fill="${t.toneText}">${esc(it.v)}</text>`;
-    it.l.forEach((s, k) => (b += `<text x="${x + 18}" y="${y + 98 + k * 19}" class="m" font-size="13.5" fill="${t.toneMuted}">${esc(s)}</text>`));
-  });
   const third = st.downloads > 0
     ? { tone: 1, ic: "dl", v: fmt(st.downloads), l: "release downloads" }
     : { tone: 1, ic: "users", v: fmt(st.followers), l: "followers" };
@@ -273,60 +286,97 @@ function statsCard(st, t) {
     { tone: 5, ic: "star", v: fmt(st.stars), l: `${plural(st.stars, "star")} earned` },
     third,
   ];
-  const sw = (W - 80 - 6 - 2 * gap) / 3;
+  const gap = phone ? 18 : 20, inner = W - 80 - 6;
+  const bigCols = phone ? 2 : 4, smallCols = phone ? 1 : 3;
+  const tw = (inner - (bigCols - 1) * gap) / bigCols, th = 132;
+  const sw = (inner - (smallCols - 1) * gap) / smallCols, sh = phone ? 62 : 70;
+  const top = phone ? 106 : 88;
+  const bigRows = Math.ceil(big.length / bigCols);
+  const smallTop = top + bigRows * (th + gap) + (phone ? 6 : 8);
+  const H = smallTop + Math.ceil(small.length / smallCols) * (sh + gap) - gap + 42;
+  let b = frame(W, H, t, false);
+  b += `<text x="40" y="62" class="h" font-size="28" fill="${t.text}">On GitHub</text>`;
+  b += phone
+    ? `<text x="40" y="86" class="m" font-size="12.5" fill="${t.muted}">redrawn every night · ${esc(st.updated || "soon")}</text>`
+    : `<text x="${W - 40}" y="60" text-anchor="end" class="m" font-size="13" fill="${t.muted}">redrawn every night · ${esc(st.updated || "soon")}</text>`;
+  big.forEach((it, i) => {
+    const x = 40 + (i % bigCols) * (tw + gap), y = top + Math.floor(i / bigCols) * (th + gap);
+    b += box(x, y, tw, th, t.tones[it.tone], t, { r: 14, shadow: 6 });
+    b += icon(it.ic, x + tw - 38, y + 16, 22, t.hot);
+    const size = it.v.length > 7 ? 29 : phone ? 33 : 36;
+    b += `<text x="${x + 16}" y="${y + 72}" class="h" font-size="${size}" fill="${t.toneText}">${esc(it.v)}</text>`;
+    it.l.forEach((s, k) => (b += `<text x="${x + 16}" y="${y + 98 + k * 19}" class="m" font-size="13" fill="${t.toneMuted}">${esc(s)}</text>`));
+  });
   small.forEach((it, i) => {
-    const x = 40 + i * (sw + gap), y = 248;
-    b += box(x, y, sw, 70, t.tones[it.tone], t, { r: 14, shadow: 6 });
-    b += icon(it.ic, x + 18, y + 23, 24, t.hot);
-    b += `<text x="${x + 54}" y="${y + 47}" class="h" font-size="30" fill="${t.toneText}">${esc(it.v)}</text>`;
-    b += `<text x="${x + 62 + headW(it.v, 30)}" y="${y + 45}" class="m" font-size="14" fill="${t.toneMuted}">${esc(it.l)}</text>`;
+    const x = 40 + (i % smallCols) * (sw + gap), y = smallTop + Math.floor(i / smallCols) * (sh + gap);
+    b += box(x, y, sw, sh, t.tones[it.tone], t, { r: 14, shadow: 6 });
+    b += icon(it.ic, x + 18, y + sh / 2 - 12, 24, t.hot);
+    b += `<text x="${x + 54}" y="${y + sh / 2 + 11}" class="h" font-size="30" fill="${t.toneText}">${esc(it.v)}</text>`;
+    b += `<text x="${x + 62 + headW(it.v, 30)}" y="${y + sh / 2 + 9}" class="m" font-size="14" fill="${t.toneMuted}">${esc(it.l)}</text>`;
   });
   const label = `On GitHub: ${fmt(st.contributionsYear)} contributions in the last year, current streak ${st.currentStreak ?? "—"} days, longest streak ${st.longestStreak ?? "—"} days, ${fmt(st.total)} contributions since ${st.since ?? "joining"}, ${fmt(st.publicRepos)} public repos, ${fmt(st.stars)} stars.`;
   return svg(W, H, label, t, b);
 }
 
 // Contribution grid. numbers=true writes each day's count in its square.
-function gridCard(days, title, t, { cols, numbers }) {
-  const W = 880;
-  const weeks = toWeeks(days).slice(-cols);
+// chunks splits the weeks into stacked rows so the squares stay big enough for numbers.
+function gridCard(days, title, t, { cols, numbers, phone, chunks = 1, calendarYear = false }) {
+  const W = phone ? 440 : 880;
+  const allWeeks = toWeeks(days).slice(-cols);
+  const perChunk = Math.ceil(cols / chunks);
   const total = days.reduce((a, d) => a + d.c, 0);
-  const gx = 52, right = W - 30 - 22;
-  const gap = numbers ? 4 : 3;
-  const cell = (right - gx - (cols - 1) * gap) / cols;
-  const gy = 124;
-  const H = gy + 7 * (cell + gap) + 84;
+  const gx = phone ? 44 : 52, right = W - 30 - (phone ? 14 : 22);
+  const gap = numbers ? (phone ? 3 : 4) : 3;
+  const cell = (right - gx - (perChunk - 1) * gap) / perChunk;
+  const blockH = 26 + 7 * (cell + gap);
+  const titleH = phone ? 106 : 98;
+  const H = titleH + chunks * blockH + (chunks - 1) * 14 + (phone ? 70 : 80);
   let b = frame(W, H, t);
-  b += `<text x="52" y="72" class="h" font-size="24" fill="${t.text}">${days.length ? fmt(total) : "—"}<tspan class="m" font-size="16" fill="${t.text}" dx="10">${esc(title)}</tspan></text>`;
+  const num = days.length ? fmt(total) : "—";
+  if (phone) {
+    b += `<text x="${gx}" y="70" class="h" font-size="26" fill="${t.text}">${num}</text>`;
+    b += `<text x="${gx}" y="94" class="m" font-size="14" fill="${t.text}">${esc(title)}</text>`;
+  } else {
+    b += `<text x="${gx}" y="72" class="h" font-size="24" fill="${t.text}">${num}<tspan class="m" font-size="16" fill="${t.text}" dx="10">${esc(title)}</tspan></text>`;
+  }
   const max = Math.max(1, ...days.map((d) => d.c));
   const lvl = (c) => (c === 0 ? 0 : Math.min(4, Math.max(1, Math.ceil((c / max) * 4))));
-  let lastLabelX = -99, lastMonth = null;
-  weeks.forEach((wk, wi) => {
-    const x = gx + (wi + (cols - weeks.length)) * (cell + gap);
-    const real = wk.filter(Boolean);
-    // label the column that contains the 1st of a month (or the first column if it starts early in a month)
-    const firstOfMonth = real.find((d) => d.d.endsWith("-01"));
-    const pick = firstOfMonth || (wi === 0 && Number(real[0].d.slice(8)) <= 7 ? real[0] : null);
-    if (pick && pick.d.slice(0, 7) !== lastMonth && x - lastLabelX > 34) {
-      b += `<text x="${x.toFixed(1)}" y="${gy - 12}" class="m" font-size="13" fill="${t.muted}">${MONTHS[Number(pick.d.slice(5, 7)) - 1]}</text>`;
-      lastLabelX = x;
-      lastMonth = pick.d.slice(0, 7);
-    }
-    wk.forEach((day, d) => {
-      if (!day) return;
-      const y = gy + d * (cell + gap);
-      const L = lvl(day.c);
-      b += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="${numbers ? 5 : 2.5}" fill="${t.heat[L]}"/>`;
-      if (numbers) {
-        const fs = day.c >= 100 ? 10.5 : 12;
-        b += `<text x="${(x + cell / 2).toFixed(2)}" y="${(y + cell / 2 + fs * 0.36).toFixed(2)}" text-anchor="middle" class="${L ? "mb" : "m"}" font-size="${fs}"${L ? "" : ' font-style="italic"'} fill="${t.heatInk[L]}">${day.c}</text>`;
+  // Rolling windows end in the last column; a calendar year starts in the first one.
+  const pad = Array(Math.max(0, cols - allWeeks.length)).fill([]);
+  const weeks = calendarYear ? [...allWeeks, ...pad] : [...pad, ...allWeeks];
+  for (let ch = 0; ch < chunks; ch++) {
+    const part = weeks.slice(ch * perChunk, (ch + 1) * perChunk);
+    const gy = titleH + ch * (blockH + 14) + 26;
+    let lastLabelX = -99, lastMonth = null;
+    part.forEach((wk, wi) => {
+      const x = gx + wi * (cell + gap);
+      const real = wk.filter(Boolean);
+      if (!real.length) return;
+      const firstOfMonth = real.find((d) => d.d.endsWith("-01"));
+      const pick = firstOfMonth || (wi === 0 ? real[0] : null);
+      if (pick && pick.d.slice(0, 7) !== lastMonth && x - lastLabelX > 30) {
+        b += `<text x="${x.toFixed(1)}" y="${gy - 10}" class="m" font-size="${phone ? 12 : 13}" fill="${t.muted}">${MONTHS[Number(pick.d.slice(5, 7)) - 1]}</text>`;
+        lastLabelX = x;
+        lastMonth = pick.d.slice(0, 7);
       }
+      wk.forEach((day, d) => {
+        if (!day) return;
+        const y = gy + d * (cell + gap);
+        const L = lvl(day.c);
+        b += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" rx="${numbers ? (phone ? 4 : 5) : 2.5}" fill="${t.heat[L]}"/>`;
+        if (numbers) {
+          const fs = day.c >= 100 ? Math.min(10.5, cell * 0.42) : Math.min(12, cell * 0.48);
+          b += `<text x="${(x + cell / 2).toFixed(2)}" y="${(y + cell / 2 + fs * 0.36).toFixed(2)}" text-anchor="middle" class="${L ? "mb" : "m"}" font-size="${fs.toFixed(1)}"${L ? "" : ' font-style="italic"'} fill="${t.heatInk[L]}">${day.c}</text>`;
+        }
+      });
     });
-  });
-  if (!days.length) b += `<text x="${W / 2}" y="${gy + 3.5 * (cell + gap)}" text-anchor="middle" class="m" font-size="14" fill="${t.faint}">fills in after the first nightly run</text>`;
-  const ly = H - 52;
-  b += `<text x="52" y="${ly}" class="m" font-size="13" fill="${t.muted}">contributions per day</text>`;
-  b += legend(right, ly, t);
-  return svg(W, H, `${days.length ? fmt(total) : "—"} ${title}`, t, b);
+  }
+  if (!days.length) b += `<text x="${W / 2}" y="${titleH + (H - titleH) / 2 - 20}" text-anchor="middle" class="m" font-size="14" fill="${t.faint}">fills in after the first nightly run</text>`;
+  const ly = H - (phone ? 48 : 52);
+  const fs = phone ? 12 : 13;
+  b += `<text x="${gx}" y="${ly}" class="m" font-size="${fs}" fill="${t.muted}">${phone ? "per day" : "contributions per day"}</text>`;
+  b += legend(right, ly, t, fs);
+  return svg(W, H, `${num} ${title}`, t, b);
 }
 
 // Smooth line through the points, clamped so it never dips below the zero line.
@@ -342,20 +392,24 @@ function smooth(pts, floorY) {
   return d;
 }
 
-function lineCard(days, t) {
-  const W = 880, H = 420;
+function lineCard(days, t, phone) {
+  const W = phone ? 440 : 880, H = phone ? 380 : 420;
   let b = frame(W, H, t);
   const total = days.reduce((a, d) => a + d.c, 0);
-  b += `<text x="52" y="72" class="h" font-size="24" fill="${t.text}">${days.length ? fmt(total) : "—"}<tspan class="m" font-size="16" fill="${t.text}" dx="10">contributions in the last 30 days</tspan></text>`;
-  const px0 = 96, px1 = W - 62, py0 = 108, py1 = 312;
+  const num = days.length ? fmt(total) : "—";
+  if (phone) {
+    b += `<text x="44" y="70" class="h" font-size="26" fill="${t.text}">${num}</text>`;
+    b += `<text x="44" y="94" class="m" font-size="14" fill="${t.text}">contributions in the last 30 days</text>`;
+  } else {
+    b += `<text x="52" y="72" class="h" font-size="24" fill="${t.text}">${num}<tspan class="m" font-size="16" fill="${t.text}" dx="10">contributions in the last 30 days</tspan></text>`;
+  }
+  const px0 = phone ? 74 : 96, px1 = W - (phone ? 50 : 62), py0 = phone ? 124 : 108, py1 = phone ? 282 : 312;
   const max = Math.max(...days.map((d) => d.c), 0);
   const steps = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500, 1000];
   const step = steps.find((s) => max / s <= 4) || 1000;
   const top = Math.max(step, Math.ceil(max / step) * step);
-  const ticks = [];
-  for (let v = 0; v <= top; v += step) ticks.push(v);
   const Y = (v) => py1 - (v / top) * (py1 - py0);
-  for (const v of ticks) {
+  for (let v = 0; v <= top; v += step) {
     b += `<line x1="${px0}" y1="${Y(v).toFixed(1)}" x2="${px1}" y2="${Y(v).toFixed(1)}" stroke="${t.line}" stroke-width="1.5"${v ? ' stroke-dasharray="5 6"' : ""}/>`;
     b += `<text x="${px0 - 12}" y="${(Y(v) + 4.5).toFixed(1)}" text-anchor="end" class="m" font-size="13" fill="${t.muted}">${v}</text>`;
   }
@@ -366,66 +420,108 @@ function lineCard(days, t) {
     b += `<path d="${line} L${px1} ${py1} L${px0} ${py1} Z" fill="${t.accent}" fill-opacity="0.16"/>`;
     b += `<path d="${line}" fill="none" stroke="${t.shadow}" stroke-width="6" stroke-linejoin="round" transform="translate(2 3)"/>`;
     b += `<path d="${line}" fill="none" stroke="${t.accent}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`;
-    pts.forEach(([x, y]) => (b += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${t.accent}" stroke="${t.shadow}" stroke-width="1.5"/>`));
+    pts.forEach(([x, y]) => (b += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${phone ? 3.5 : 4.5}" fill="${t.accent}" stroke="${t.shadow}" stroke-width="1.5"/>`));
+    const every = phone ? 5 : 1;
     days.forEach((d, i) => {
       const day = Number(d.d.slice(8));
-      b += `<text x="${X(i).toFixed(1)}" y="${py1 + 26}" text-anchor="middle" class="m" font-size="12.5" fill="${t.muted}">${day}</text>`;
-      if (i === 0 || day === 1) b += `<text x="${X(i).toFixed(1)}" y="${py1 + 46}" text-anchor="middle" class="m" font-size="12.5" fill="${t.muted}">${MONTHS[Number(d.d.slice(5, 7)) - 1]}</text>`;
+      const last = i === days.length - 1;
+      if (i % every === 0 || (phone && last && i % every > 2)) b += `<text x="${X(i).toFixed(1)}" y="${py1 + 26}" text-anchor="middle" class="m" font-size="12.5" fill="${t.muted}">${day}</text>`;
+      if (i === 0 || (day === 1 && (!phone || i % every === 0))) b += `<text x="${X(i).toFixed(1)}" y="${py1 + 46}" text-anchor="middle" class="m" font-size="12.5" fill="${t.muted}">${MONTHS[Number(d.d.slice(5, 7)) - 1]}</text>`;
     });
   } else {
     b += `<text x="${(px0 + px1) / 2}" y="${(py0 + py1) / 2}" text-anchor="middle" class="m" font-size="14" fill="${t.faint}">fills in after the first nightly run</text>`;
   }
-  return svg(W, H, `${days.length ? fmt(total) : "—"} contributions in the last 30 days`, t, b);
+  return svg(W, H, `${num} contributions in the last 30 days`, t, b);
 }
 
-function whoami(t) {
-  const W = 880, lh = 28;
+function whoami(t, phone) {
+  const W = phone ? 440 : 880, lh = phone ? 24 : 28, fs = phone ? 14.5 : 17;
+  const width = phone ? 40 : 72;
   const lines = [
-    { k: "cmd", s: "whoami" }, { k: "who" }, ...wrap(WHOAMI.bio, 72).map((s) => ({ k: "txt", s })),
-    { k: "gap" }, { k: "cmd", s: "cat now.txt" }, ...WHOAMI.now.map((s) => ({ k: "now", s })), { k: "gap" }, { k: "cursor" },
+    { k: "cmd", s: "whoami" }, { k: "who" }, ...wrap(WHOAMI.bio, width).map((s) => ({ k: "txt", s })),
+    { k: "gap" }, { k: "cmd", s: "cat now.txt" },
+    ...WHOAMI.now.flatMap((s) => wrap(s, width - 3).map((p, i) => ({ k: i ? "cont" : "now", s: p }))),
+    { k: "gap" }, { k: "cursor" },
   ];
   const H = 24 + 52 + 40 + lines.reduce((a, l) => a + (l.k === "gap" ? 14 : lh), 0) + 30;
+  const x0 = phone ? 44 : 52, ind = fs * 0.6 * 2 + 2;
   let b = frame(W, H, t);
   b += `<path d="M26 76 H${W - 32}" stroke="${t.line}" stroke-width="1.5"/>`;
-  ["#ff5f57", "#febc2e", "#28c840"].forEach((c, i) => (b += `<circle cx="${52 + i * 20}" cy="50" r="6" fill="${c}"/>`));
-  b += `<text x="${(W - 6) / 2}" y="55" text-anchor="middle" class="m" font-size="14" fill="${t.muted}">${esc(WHOAMI.host)}</text>`;
+  ["#ff5f57", "#febc2e", "#28c840"].forEach((c, i) => (b += `<circle cx="${x0 + i * 20}" cy="50" r="6" fill="${c}"/>`));
+  b += `<text x="${phone ? W - 52 : (W - 6) / 2}" y="55" text-anchor="${phone ? "end" : "middle"}" class="m" font-size="14" fill="${t.muted}">${esc(WHOAMI.host)}</text>`;
   let y = 76 + 42;
   for (const l of lines) {
     if (l.k === "gap") { y += 14; continue; }
-    if (l.k === "cmd") b += `<text x="52" y="${y}" class="mb" font-size="17" fill="${t.hot}">$<tspan class="mb" dx="12" fill="${t.text}">${esc(l.s)}</tspan></text>`;
-    if (l.k === "who") b += `<text x="52" y="${y}" class="mb" font-size="17" fill="${t.text}">${esc(WHOAMI.who[0])}<tspan class="m" fill="${t.faint}">  ·  </tspan><tspan class="m" fill="${t.muted}">${esc(WHOAMI.who[1])}</tspan></text>`;
-    if (l.k === "txt") b += `<text x="52" y="${y}" class="m" font-size="17" fill="${t.muted}">${esc(l.s)}</text>`;
-    if (l.k === "now") b += `<text x="52" y="${y}" class="m" font-size="17" fill="${t.accent}">→<tspan class="m" dx="12" fill="${t.text}">${esc(l.s)}</tspan></text>`;
-    if (l.k === "cursor") b += `<text x="52" y="${y}" class="mb" font-size="17" fill="${t.hot}">$</text><rect x="72" y="${y - 15}" width="10" height="19" fill="${t.text}"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.1s" repeatCount="indefinite"/></rect>`;
+    if (l.k === "cmd") b += `<text x="${x0}" y="${y}" class="mb" font-size="${fs}" fill="${t.hot}">$<tspan class="mb" dx="${fs * 0.7}" fill="${t.text}">${esc(l.s)}</tspan></text>`;
+    if (l.k === "who") b += `<text x="${x0}" y="${y}" class="mb" font-size="${fs}" fill="${t.text}">${esc(WHOAMI.who[0])}<tspan class="m" fill="${t.faint}">  ·  </tspan><tspan class="m" fill="${t.muted}">${esc(WHOAMI.who[1])}</tspan></text>`;
+    if (l.k === "txt") b += `<text x="${x0}" y="${y}" class="m" font-size="${fs}" fill="${t.muted}">${esc(l.s)}</text>`;
+    if (l.k === "now") b += `<text x="${x0}" y="${y}" class="m" font-size="${fs}" fill="${t.accent}">→<tspan class="m" x="${x0 + ind}" fill="${t.text}">${esc(l.s)}</tspan></text>`;
+    if (l.k === "cont") b += `<text x="${x0 + ind}" y="${y}" class="m" font-size="${fs}" fill="${t.text}">${esc(l.s)}</text>`;
+    if (l.k === "cursor") b += `<text x="${x0}" y="${y}" class="mb" font-size="${fs}" fill="${t.hot}">$</text><rect x="${x0 + ind}" y="${y - fs * 0.88}" width="${fs * 0.58}" height="${fs * 1.1}" fill="${t.text}"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.1s" repeatCount="indefinite"/></rect>`;
     y += lh;
   }
   return svg(W, H, `whoami: ${WHOAMI.who.join(", ")}. ${WHOAMI.bio} Now: ${WHOAMI.now.join(". ")}.`, t, b);
 }
 
-function label(text, t) {
-  const W = 880, H = 72;
+function label(text, t, phone) {
+  const W = phone ? 440 : 880, H = 72;
   let b = box(4, 12, headW(text, 26) + 40, 46, t.hot, t, { r: 11, shadow: 5 });
   b += `<text x="24" y="44" class="h" font-size="26" fill="#1b1f36">${esc(text)}</text>`;
   return svg(W, H, text, t, b);
 }
 
-function projectCard(p, t, mode) {
-  const W = 432, H = 300;
-  let b = frame(W, H, t, false);
-  b += box(16, 16, W - 40, H - 40, t.tones[p.tone], t, { r: 16, shadow: 6 });
-  b += box(36, 36, 58, 58, mode === "dark" ? "#141830" : "#ffffff", t, { r: 14, shadow: 4 });
-  b += logo(p.icon, 50, 50, 30, brand(p.icon, mode));
-  b += `<text x="110" y="62" class="h" font-size="25" fill="${t.toneText}">${esc(p.name)}</text>`;
-  b += chip(110, 72, p.status, t.accent, t, { size: 11.5, h: 22, color: t.accentInk }).out;
-  b += box(W - 76, 36, 30, 30, t.hot, t, { r: 8, shadow: 3 }) + icon("arrow", W - 74, 38, 26, "#1b1f36", 2.4);
-  wrap(p.desc, 40).slice(0, 3).forEach((s, i) => (b += `<text x="36" y="${132 + i * 23}" class="m" font-size="14.5" fill="${t.toneText}">${esc(s)}</text>`));
-  let x = 36;
-  for (const tag of p.tags) {
-    const w = monoW(tag, 12) + 18;
-    b += `<rect x="${x}" y="206" width="${w}" height="24" rx="6" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffffaa"}" stroke="${t.shadow}" stroke-opacity="0.6"/><text x="${x + w / 2}" y="222.5" text-anchor="middle" class="m" font-size="12" fill="${t.toneText}">${esc(tag)}</text>`;
-    x += w + 8;
+// Desktop cards are 432 wide; phone cards are narrower and taller so the text stays
+// readable when two of them sit side by side on a small screen.
+function projectCard(p, t, mode, phone) {
+  if (!phone) {
+    const W = 432, H = 300;
+    let b = frame(W, H, t, false);
+    b += box(16, 16, W - 40, H - 40, t.tones[p.tone], t, { r: 16, shadow: 6 });
+    b += box(36, 36, 58, 58, mode === "dark" ? "#141830" : "#ffffff", t, { r: 14, shadow: 4 });
+    b += logo(p.icon, 50, 50, 30, brand(p.icon, mode));
+    b += `<text x="110" y="62" class="h" font-size="25" fill="${t.toneText}">${esc(p.name)}</text>`;
+    b += chip(110, 72, p.status, t.accent, t, { size: 11.5, h: 22, color: t.accentInk }).out;
+    b += box(W - 76, 36, 30, 30, t.hot, t, { r: 8, shadow: 3 }) + icon("arrow", W - 74, 38, 26, "#1b1f36", 2.4);
+    wrap(p.desc, 40).slice(0, 3).forEach((s, i) => (b += `<text x="36" y="${132 + i * 23}" class="m" font-size="14.5" fill="${t.toneText}">${esc(s)}</text>`));
+    let x = 36;
+    for (const tag of p.tags) {
+      const w = monoW(tag, 12) + 18;
+      b += `<rect x="${x}" y="206" width="${w}" height="24" rx="6" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffffaa"}" stroke="${t.shadow}" stroke-opacity="0.6"/><text x="${x + w / 2}" y="222.5" text-anchor="middle" class="m" font-size="12" fill="${t.toneText}">${esc(tag)}</text>`;
+      x += w + 8;
+    }
+    b += `<text x="36" y="256" class="m" font-size="13" fill="${t.toneMuted}">${esc(p.footer)}</text>`;
+    return svg(W, H, `${p.name}: ${p.desc}`, t, b);
   }
-  b += `<text x="36" y="256" class="m" font-size="13" fill="${t.toneMuted}">${esc(p.footer)}</text>`;
+  const W = 220;
+  const desc = wrap(p.desc, 22).slice(0, 5);
+  const descY = 112;
+  const tagY = descY + desc.length * 17 + 6;
+  const tagRows = [];
+  let row = [], used = 0;
+  for (const tag of p.tags) {
+    const w = monoW(tag, 10) + 12;
+    if (used + w > W - 44 && row.length) { tagRows.push(row); row = []; used = 0; }
+    row.push({ tag, w }); used += w + 6;
+  }
+  if (row.length) tagRows.push(row);
+  const footY = tagY + tagRows.length * 25 + 18;
+  const H = footY + 28;
+  let b = box(4, 4, W - 14, H - 14, t.tones[p.tone], t, { r: 14, shadow: 5 });
+  b += box(18, 18, 40, 40, mode === "dark" ? "#141830" : "#ffffff", t, { r: 10, shadow: 3 });
+  b += logo(p.icon, 27, 27, 22, brand(p.icon, mode));
+  b += box(W - 44, 18, 24, 24, t.hot, t, { r: 7, shadow: 2 }) + icon("arrow", W - 43, 19, 22, "#1b1f36", 2.2);
+  b += `<text x="18" y="86" class="h" font-size="20" fill="${t.toneText}">${esc(p.name)}</text>`;
+  b += chip(18 + headW(p.name, 20) + 8, 70, p.status, t.accent, t, { size: 10, h: 20, color: t.accentInk }).out.replace(/rx="9"/g, 'rx="7"');
+  desc.forEach((s, i) => (b += `<text x="18" y="${descY + i * 17}" class="m" font-size="12" fill="${t.toneText}">${esc(s)}</text>`));
+  tagRows.forEach((r, ri) => {
+    let x = 18;
+    for (const { tag, w } of r) {
+      const y = tagY + ri * 25;
+      b += `<rect x="${x}" y="${y}" width="${w}" height="20" rx="5" fill="${mode === "dark" ? "#0b0e1c66" : "#ffffffaa"}" stroke="${t.shadow}" stroke-opacity="0.6"/><text x="${x + w / 2}" y="${y + 13.8}" text-anchor="middle" class="m" font-size="10" fill="${t.toneText}">${esc(tag)}</text>`;
+      x += w + 6;
+    }
+  });
+  b += `<text x="18" y="${footY}" class="m" font-size="10" fill="${t.toneMuted}">${esc(p.footer)}</text>`;
   return svg(W, H, `${p.name}: ${p.desc}`, t, b);
 }
 
@@ -498,8 +594,9 @@ async function fetchStats() {
 
 /* ------------------------------------------------------------------- readme */
 
+// <picture> that serves the phone card below 600px and follows the colour scheme.
 const pic = (name, alt) =>
-  `<picture><source media="(prefers-color-scheme: dark)" srcset="assets/${name}-dark.svg"><img src="assets/${name}-light.svg" width="100%" alt="${esc(alt)}"></picture>`;
+  `<picture><source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/${name}-phone-dark.svg"><source media="(max-width: 600px)" srcset="assets/${name}-phone-light.svg"><source media="(prefers-color-scheme: dark)" srcset="assets/${name}-dark.svg"><img src="assets/${name}-light.svg" width="100%" alt="${esc(alt)}"></picture>`;
 
 function yearsBlock(st) {
   const sum = (ds) => ds.reduce((a, d) => a + d.c, 0);
@@ -535,17 +632,21 @@ const last6m = cut >= 0 ? lastYearDays.slice(cut) : lastYearDays;
 
 for (const f of readdirSync(ASSETS)) if (f.endsWith(".svg")) unlinkSync(join(ASSETS, f));
 for (const [mode, t] of Object.entries(THEMES)) {
-  const out = async (name, p) => writeFileSync(join(ASSETS, `${name}-${mode}.svg`), await p);
-  await out("hero", hero(t, mode));
-  for (const s of SKILLS) await out(`skill-${s.icon}`, skillBadge(s, t, mode));
-  await out("github", statsCard(stats, t));
-  await out("graph-6m", gridCard(last6m, "contributions in the last 6 months", t, { cols: 26, numbers: true }));
-  await out("graph-12m", gridCard(lastYearDays, "contributions in the last 12 months", t, { cols: 53, numbers: false }));
-  for (const [y, ds] of Object.entries(stats.years || {})) await out(`graph-${y}`, gridCard(ds, `contributions in ${y}`, t, { cols: 53, numbers: false }));
-  await out("line-30d", lineCard(last30, t));
-  await out("whoami", whoami(t));
-  await out("label-build", label("What I build", t));
-  for (const p of PROJECTS) await out(`project-${p.slug}`, projectCard(p, t, mode));
+  for (const phone of [false, true]) {
+    const sfx = `${phone ? "-phone" : ""}-${mode}.svg`;
+    const out = async (name, p) => writeFileSync(join(ASSETS, name + sfx), await p);
+    await out("hero", hero(t, mode, phone));
+    await out("skills", skillsCard(t, mode, phone));
+    await out("github", statsCard(stats, t, phone));
+    await out("graph-6m", gridCard(last6m, "contributions in the last 6 months", t, { cols: 26, numbers: true, phone, chunks: phone ? 2 : 1 }));
+    const yearOpts = { cols: 53, numbers: true, phone, chunks: phone ? 4 : 2 };
+    await out("graph-12m", gridCard(lastYearDays, "contributions in the last 12 months", t, yearOpts));
+    for (const [y, ds] of Object.entries(stats.years || {})) await out(`graph-${y}`, gridCard(ds, `contributions in ${y}`, t, { ...yearOpts, calendarYear: true }));
+    await out("line-30d", lineCard(last30, t, phone));
+    await out("whoami", whoami(t, phone));
+    await out("label-build", label("What I build", t, phone));
+    for (const p of PROJECTS) await out(`project-${p.slug}`, projectCard(p, t, mode, phone));
+  }
 }
 
 const readme = readFileSync(README, "utf8");
