@@ -70,4 +70,4 @@
 </picture>
 -->
 
-<p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action · <img src="https://komarev.com/ghpvc/?username=AdalOnShow&color=2dd4bf&style=flat-square&label=views" height="14" alt="Profile views" align="center"></sub></p>
+<p align="center"><sub>Cards drawn by <code>scripts/generate.mjs</code> · numbers redrawn every night by a GitHub Action</sub></p>
