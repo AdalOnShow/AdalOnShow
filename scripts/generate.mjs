@@ -83,14 +83,14 @@ const PROJECTS = [
 
 const THEMES = {
   dark: {
-    frame: "#14182b", dot: "#262c4a", card: "#1e2340", line: "#2e355c", shadow: "#0a0c18",
+    frame: "#161a30", dot: "#2a3152", card: "#222849", line: "#343c68", shadow: "#0a0c18",
     text: "#f2f3f8", muted: "#aab0cf", faint: "#6d749c",
     accent: "#2dd4bf", accentInk: "#04211d", hot: "#ff8a5c",
     // blue, green, amber, purple, teal, red
-    tones: ["#284a86", "#1f6040", "#81501a", "#4c3c8e", "#1d5b66", "#83293d"],
-    toneText: "#f2f3f8", toneMuted: "#d6dbef",
-    heat: ["#2a3058", "#1d5a37", "#2a8a4d", "#3cbd66", "#63e38b"],
-    heatInk: ["#6d749c", "#d9f5e2", "#ecfbf1", "#0b2414", "#0b2414"],
+    tones: ["#3563b8", "#2a8155", "#a8691f", "#6650bd", "#237b8a", "#ad3b55"],
+    toneText: "#ffffff", toneMuted: "#eef0fa",
+    heat: ["#30375f", "#23733f", "#34a85c", "#4fd67a", "#86f5a8"],
+    heatInk: ["#7880aa", "#e6fbee", "#062012", "#062012", "#062012"],
   },
   light: {
     frame: "#eef0f7", dot: "#d7dbea", card: "#ffffff", line: "#d3d8ea", shadow: "#c3c9e0",
